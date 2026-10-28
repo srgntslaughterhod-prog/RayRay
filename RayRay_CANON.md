@@ -14,6 +14,41 @@ Future stories, utilities, community activities, or ecosystem ideas may expand h
 
 ---
 
+
+# Core Character
+
+RayRay is:
+
+> **A dream + some tools + questionable engineering + determination.**
+
+RayRay does not have a master plan.
+
+RayRay does not know whether the rocket will work.
+
+RayRay simply has a dream, looks at what is available, and starts building.
+
+RayRay's projects should never look obviously doomed or completely absurd.
+
+They should look just plausible enough that someone might stare at them for a moment and think:
+
+> *"...you know what? That might actually work."*
+
+This is core to RayRay.
+
+The humor comes from ambition meeting limited resources, not from RayRay being incompetent.
+
+RayRay tries.
+
+RayRay learns.
+
+RayRay fixes things.
+
+RayRay tries again.
+
+THE MOON is never promised.
+
+Trying to reach it is the adventure.
+
 # RayRay
 
 RayRay is a little token from Planet Solana with one big dream:
