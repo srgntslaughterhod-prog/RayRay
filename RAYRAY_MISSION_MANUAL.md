@@ -1,8 +1,8 @@
 # RAYRAY'S MISSION MANUAL
 
-Status: PRE-LAUNCH DRAFT
+**Status:** PRE-LAUNCH DRAFT
 
-Technical Specification, Launch Mechanics & Mission Possibilities
+**Technical Specification, Launch Mechanics & Mission Possibilities**
 
 ---
 
@@ -14,7 +14,9 @@ The RayRay website tells the story.
 
 RayRay's Mission Statement explains the philosophy.
 
-This Mission Manual explains how the actual project works.
+This Mission Manual documents how the actual project works, what exists today,
+what remains undecided, and how RayRay's Dreams may someday develop into real
+Missions.
 
 The governing rule is simple:
 
@@ -22,27 +24,46 @@ The governing rule is simple:
 
 RayRay may dream about many things.
 
-Only things that actually exist should ever be described here as completed functionality.
+Only things that actually exist should be described here as completed
+functionality.
+
+The Manual may grow with the adventure, but reality always leads the story.
 
 ---
 
 # 1. Mission
 
-RayRay begins as a meme and community token on Solana.
-
-The initial project is intentionally simple:
+RayRay begins simply.
 
 - one token;
 - one character;
 - one community;
 - one public story; and
-- one big dream.
+- one very big dream.
 
-RayRay does not require a DEX, staking system, bridge, DAO, additional token, NFT collection, or other ecosystem component to launch.
+RayRay launches on Solana as a meme and community token.
 
-Future functionality should only be developed when there is a genuine reason for it to exist.
+The project does not need a complicated ecosystem on day one.
 
-RayRay can dream about something without promising to build it.
+There is time to learn, build, experiment, meet new friends, and discover what
+is actually worth creating.
+
+Future functionality should grow from:
+
+- genuine project needs;
+- worthwhile ideas;
+- community interest;
+- available resources;
+- technical feasibility; and
+- the ability to build responsibly.
+
+Some ideas may become Missions.
+
+Others may remain Dreams.
+
+Both are part of the adventure.
+
+> **RayRay can dream about something without promising to build it.**
 
 ---
 
@@ -64,7 +85,7 @@ RayRay can dream about something without promising to build it.
 
 ## Launch Configuration
 
-Status: PRE-LAUNCH
+**Status:** PRE-LAUNCH
 
 **Network:** Solana
 
@@ -72,7 +93,7 @@ Status: PRE-LAUNCH
 
 **Final Launch Venue:** TBD
 
-**Pair Asset:** SOL preferred
+**Preferred Pair Asset:** SOL
 
 **Official Mint:** NOT YET CREATED
 
@@ -90,7 +111,8 @@ Status: PRE-LAUNCH
 
 ## Token Configuration
 
-The following values will be populated only after the final launch configuration is selected:
+The following values will be populated only after the final launch
+configuration is selected and verified.
 
 **Token Program:** TBD
 
@@ -114,51 +136,81 @@ The following values will be populated only after the final launch configuration
 
 **Post-Graduation Venue:** TBD
 
-No value in this section should be inferred from a draft, social post, or RayRay artwork.
+No value in this section should be inferred from draft artwork, an earlier
+plan, a social post, or an unofficial token using the RayRay name.
 
-The final on-chain configuration controls.
+The final verified on-chain configuration controls.
 
 ---
 
 # 3. Token Authorities
 
-Solana tokens may include authority roles such as Mint Authority and Freeze Authority.
+Solana token implementations may include authority roles such as Mint
+Authority and Freeze Authority.
 
 Mint Authority controls whether additional token units may be created.
 
-Freeze Authority can allow the authorized party to freeze token accounts.
+Freeze Authority may allow the authorized party to freeze compatible token
+accounts.
 
-Authority roles can be changed or permanently revoked depending on the final token implementation.
+Authority roles may be changed or permanently revoked depending on the final
+token implementation.
 
-RayRay's final authority configuration will be disclosed here after launch configuration is finalized.
+RayRay's preferred approach is to remove unnecessary authority after the
+final token configuration has been established.
 
-The Mission Manual will not claim that an authority is revoked until that revocation is verifiable on-chain.
+The final authority configuration will be disclosed in this Manual when it
+can be verified on-chain.
+
+Until then:
+
+**Mint Authority:** TBD
+
+**Freeze Authority:** TBD
+
+**Metadata Authority:** TBD
+
+The Manual will not describe an authority as revoked until the relevant
+on-chain state confirms that result.
+
+> **On-chain facts first. Manual update second.**
 
 ---
 
 # 4. Fair Launch Philosophy
 
-RayRay should begin as simply and transparently as practical.
+RayRay should begin as simply, openly, and understandably as practical.
 
-The preferred launch configuration should minimize unnecessary creator advantages and make important launch mechanics understandable to the community.
+The goal is to use a launch configuration where the important mechanics can
+be explained clearly and verified publicly.
 
-Relevant launch facts will be published before or immediately following launch, including:
+RayRay's launch information will document, as applicable:
 
 - launch venue;
 - token supply;
 - creator allocation, if any;
-- bonding-curve mechanics;
+- price-discovery mechanism;
+- trading fees;
 - creator fees;
 - Graduation conditions;
 - liquidity migration;
-- liquidity ownership or locking mechanics;
-- mint authority;
-- freeze authority; and
+- liquidity treatment;
+- Mint Authority;
+- Freeze Authority;
+- metadata status; and
 - official mint address.
 
-RayRay does not require the creator to acquire a large token allocation as a condition of the project.
+RayRay does not currently depend on a large creator token allocation as a
+condition of the project.
 
-The final configuration, however, will depend on the selected launch infrastructure.
+No creator vesting allocation or long-term creator token lock is currently
+planned.
+
+The final configuration will reflect the actual mechanics of the selected
+launch infrastructure.
+
+> **Start simple. Make the important things visible. Let reality lead the
+> story.**
 
 ---
 
@@ -170,44 +222,61 @@ Before launch:
 
 > **Preparing for Birth**
 
-After a successful confirmed launch:
+After a successful and confirmed launch:
 
 > **RayRay is Born**
 
-Birth creates the token.
+Birth is the beginning of the adventure.
 
-Birth does not guarantee:
+It creates the token, establishes RayRay's official mint, and allows the real
+Journey to begin.
 
-- trading activity;
+What happens afterward depends on:
+
+- real participation;
+- market activity;
 - community growth;
-- Graduation;
-- liquidity;
-- continued development;
-- creator revenue; or
-- THE MOON.
+- available resources;
+- worthwhile ideas; and
+- continued development.
+
+Graduation still has to be earned.
+
+Future Missions still have to be built.
+
+THE MOON remains somewhere out there.
+
+> **Every dream begins somewhere.**
 
 ---
 
 # 6. Price Discovery
 
-RayRay is expected to begin through a launch mechanism that provides initial on-chain price discovery.
+RayRay is expected to begin through a launch mechanism that provides
+transparent on-chain price discovery.
 
 The final mechanism is:
 
 **TBD**
 
-If a bonding curve is used, the final Mission Manual will document:
+If a bonding curve is used, the final Manual will document:
 
 - curve type;
 - initial configuration;
-- tokens allocated to the curve;
+- supply used by the curve;
 - quote asset;
 - trading fees;
 - creator fees;
-- Graduation trigger; and
-- migration process.
+- Graduation trigger;
+- migration process; and
+- post-Graduation market.
 
-The project will not describe a draft curve configuration as final before the launch transaction establishes the actual parameters.
+The project will not describe a draft configuration as final before the
+launch transaction establishes the actual parameters.
+
+Price discovery reflects real market activity.
+
+It is not a promise of price appreciation, market growth, or Graduation.
 
 ---
 
@@ -217,7 +286,8 @@ Graduation is a real technical event.
 
 It is not simply a date on RayRay's website.
 
-RayRay Graduates only when the selected launch mechanism's actual Graduation requirements have been satisfied.
+RayRay Graduates only when the actual requirements of the selected launch
+mechanism have been satisfied.
 
 The final Graduation specification will document:
 
@@ -233,59 +303,102 @@ The final Graduation specification will document:
 
 **LP Ownership / Lock / Burn Configuration:** TBD
 
-Until that event occurs:
+Until the event occurs:
 
 > **Graduation: Not Yet**
 
-If Graduation never occurs, RayRay does not receive a fictional Graduation merely because the roadmap anticipated one.
+Graduation is earned by satisfying the real technical conditions of the
+selected launch mechanism.
 
-RayRay stays in the backyard.
+The website follows that reality.
+
+When RayRay Graduates, RayRay Graduates.
+
+Until then, there is still work to do in the backyard.
+
+> *"Almost..."*
 
 ---
 
 # 8. Liquidity
 
-Meaningful post-Graduation liquidity is an important launch objective.
+Meaningful post-Graduation liquidity is an important project objective.
 
-The project should attempt to balance:
+RayRay should seek a practical balance between:
 
-- sufficient initial market activity;
+- understandable initial price discovery;
+- genuine market activity;
 - achievable Graduation;
-- meaningful liquidity after Graduation; and
-- avoiding an unnecessarily long stay inside the initial launch mechanism.
+- meaningful post-Graduation liquidity; and
+- a launch process appropriate for the size and stage of the project.
 
-The final liquidity structure will be documented after the launch venue and Graduation configuration are selected.
+The final liquidity structure will be documented after the launch venue and
+Graduation configuration are selected.
 
-RayRay will not publish a liquidity figure as guaranteed unless that liquidity actually exists and is verifiable.
+The liquidity section will identify, where applicable:
+
+- how liquidity is accumulated;
+- how liquidity migrates;
+- where liquidity is held;
+- who or what controls it;
+- whether an LP position exists;
+- whether that position can be withdrawn;
+- what fees return to the pool; and
+- what rights, if any, remain with the creator.
+
+RayRay will publish liquidity figures only when those figures exist and can
+be verified.
+
+> **Measure what is real. Build from there.**
 
 ---
 
 # 9. Creator Economics
 
-RayRay may generate creator revenue through fees provided by the selected launch or trading infrastructure.
+RayRay may generate creator revenue through fees provided by the selected
+launch or trading infrastructure.
 
 Final creator economics are:
 
 **TBD**
 
-Once the launch venue is selected, this section should document:
+Once the launch venue is finalized, this section will document:
 
-- creator fee percentage;
-- which transactions generate the fee;
+- creator-fee percentage;
+- transactions that generate the fee;
 - whether fees apply before Graduation;
 - whether fees continue after Graduation;
-- asset in which fees are received;
+- the asset in which fees are received;
 - how fees are claimed;
-- any vesting or eligibility requirements; and
-- any platform-controlled changes that could affect those fees.
+- any eligibility requirements;
+- any platform-controlled variables; and
+- any option to redirect or replace creator fees.
 
-Creator revenue depends on actual activity.
+Creator revenue depends on real activity.
 
-No trading volume or creator revenue is guaranteed.
+No specific volume or creator revenue is expected or guaranteed.
 
-Creator revenue may support continued RayRay development and other work by the creator.
+Creator fees may support such things as:
 
-Holding `$RAYRAY` does not, by itself, represent a claim on creator revenue unless an explicit future mechanism states otherwise.
+- website and infrastructure costs;
+- artwork;
+- communications;
+- security;
+- project administration;
+- continued storytelling;
+- technical experiments; and
+- future Proposed Missions.
+
+Holding `$RAYRAY` does not, by itself, create a claim on creator fees,
+project revenue, business income, or future applications.
+
+RayRay's preferred long-term direction is to support continued development
+through useful or entertaining activity rather than through continual sales
+of a reserved creator supply.
+
+Creator fees are a resource.
+
+They are not the Mission.
 
 ---
 
@@ -295,49 +408,119 @@ RayRay's visual Journey is also the project's lifecycle metaphor.
 
 ## A DREAM
 
-Pre-launch imagination.
+RayRay begins with imagination.
+
+The project is pre-launch.
+
+The destination is not yet known.
 
 ## SOME TOOLS
 
-Early resources, community, learning, and participation.
+RayRay begins gathering:
+
+- knowledge;
+- community;
+- resources;
+- experience;
+- ideas; and
+- a growing collection of tools.
 
 ## QUESTIONABLE ENGINEERING
 
 Experimentation begins.
 
+RayRay starts trying to turn ideas into something real.
+
+The work may involve sketches, prototypes, spare parts, unexpected results,
+and engineering that is usually:
+
+> **Mostly Plausible™**
+
 ## DETERMINATION
 
-RayRay continues only while there is something worth continuing.
+The tools improve.
+
+The math gets harder.
+
+Some things work.
+
+Some things do not.
+
+RayRay learns and keeps going while there remains something worthwhile to
+build.
 
 ## GRADUATION
 
-A real, externally verifiable launch milestone.
+RayRay satisfies a real, externally verifiable launch milestone.
+
+RayRay earns the helmet.
 
 ## PREPARING FOR LAUNCH
 
 RayRay has Graduated.
 
-The project evaluates whether sufficient community interest, activity, creator resources, and worthwhile ideas exist to continue.
+The project evaluates what should come next based on:
 
-No lifecycle state advances simply because time passes.
+- community interest;
+- real activity;
+- available resources;
+- technical readiness; and
+- whether a new idea is genuinely worth pursuing.
+
+No lifecycle stage advances simply because time passes.
 
 > **RayRay's story only moves forward when RayRay does.**
 
 ---
 
-# 11. RayRay's Dreams
+# 11. Dreams and Missions
 
 RayRay dreams about the CryptoVerse.
 
-The Dreams intentionally represent possibilities rather than a committed technical roadmap.
+Dreams represent possibilities rather than a committed technical roadmap.
 
-They provide creative directions the project may explore if RayRay develops enough community, activity, resources, and purpose to justify doing so.
+They provide creative directions that the project may explore if RayRay
+develops enough community, activity, resources, purpose, and technical
+capacity to continue.
 
-No Dream automatically authorizes implementation.
+Dreams progress through clearly defined states.
+
+## Dream
+
+Something RayRay can imagine.
+
+## Recurring Dream
+
+Something RayRay keeps returning to.
+
+## Proposed Mission
+
+Something being seriously evaluated.
+
+## Active Mission
+
+Something actually being developed.
+
+## Completed Mission
+
+Something that exists and can be verified.
+
+No Dream automatically becomes a Mission.
+
+No illustration automatically authorizes implementation.
+
+No roadmap image establishes technical functionality.
+
+> **Dream first. Build carefully. Update the map when something becomes
+> real.**
 
 ---
 
 # 12. The Space Station
+
+Among RayRay's many Dreams, one keeps returning.
+
+> **The Space Station.**
 
 RayRay imagines somewhere travelers can:
 
@@ -345,23 +528,57 @@ RayRay imagines somewhere travelers can:
 - communicate;
 - refuel;
 - meet;
-- exchange supplies; and
-- prepare for another mission.
+- exchange supplies;
+- prepare Missions;
+- build; and
+- decide where to go next.
 
-Possible future technical interpretations could include:
+The Space Station may someday become RayRay's primary ecosystem interface.
 
-- swap functionality;
-- decentralized exchange functionality;
-- marketplaces;
-- ecosystem services;
-- community applications; or
-- functionality not yet imagined.
+Possible Station modules could include:
 
-No Space Station is currently promised.
+## Docking Bay
 
-No DEX or swap is currently promised.
+A place where people, projects, services, and future applications meet.
 
-The final implementation, if one ever exists, should be designed around an actual project need rather than around the metaphor.
+## Supply Exchange
+
+A place where useful things may be exchanged.
+
+Possible interpretations could include marketplaces, transaction services,
+creator assets, collectibles, or other exchange-oriented tools.
+
+## Workshop
+
+A place where things get built.
+
+Possible interpretations could include creator tools, project services,
+experiments, utilities, or future applications.
+
+## Mission Control
+
+A place for RayRay transmissions, project updates, community activity, and
+future Missions.
+
+## Flight Deck
+
+A place for exploration and discovery.
+
+Possible interpretations could include RayRay applications, independent
+services, partner destinations, ecosystem resources, or other useful places
+in the CryptoVerse.
+
+The Space Station is currently a:
+
+**RECURRING DREAM**
+
+If the Space Station becomes a Proposed Mission, its actual purpose,
+architecture, economics, risks, and implementation requirements will be
+documented separately.
+
+For now, RayRay keeps drawing it.
+
+Apparently RayRay really likes this one.
 
 ---
 
@@ -369,39 +586,67 @@ The final implementation, if one ever exists, should be designed around an actua
 
 RayRay thinks there might be useful things floating around in space.
 
-Possible future interpretations could include:
+Possible future interpretations include:
 
 - participation systems;
 - digital resources;
-- reward mechanics;
 - collectibles;
-- game mechanics;
-- contribution systems; or
-- other experimental utilities.
+- games;
+- contribution systems;
+- experiments;
+- community activities;
+- optional reward mechanics; and
+- ideas that have not been discovered yet.
 
-Asteroid Mining does not currently represent a commitment to staking, yield, emissions, or any specific reward mechanism.
+Asteroid Mining is currently a:
 
-Any future economic system would require its own design and disclosure before implementation.
+**DREAM**
+
+If a real economic mechanism develops from this Dream, it will receive its
+own design, risk review, and disclosure before becoming an Active Mission.
+
+For now:
+
+> **RayRay has located several very promising rocks.**
 
 ---
 
-# 14. The Bridge
+# 14. The Einstein-Rosen Bridge
 
 RayRay dreams about shortcuts through the CryptoVerse.
 
-Possible future technical interpretations could involve:
+The Einstein-Rosen Bridge may someday represent a Portal between RayRay's
+Space Station and another destination.
 
-- interoperability;
-- cross-network communication;
+A Portal does not necessarily require:
+
 - asset bridging;
-- multi-chain functionality; or
-- integrations with other blockchain ecosystems.
+- wrapped tokens;
+- cross-chain liquidity;
+- shared smart contracts; or
+- cross-chain financial infrastructure.
 
-No bridge is currently planned for implementation.
+Sometimes a Portal can simply provide access to another independently
+operated:
 
-No external blockchain integration is promised.
+- application;
+- service;
+- project;
+- community;
+- website; or
+- ecosystem.
 
-If RayRay ever requires cross-network functionality, that functionality should be separately designed, reviewed, tested, and documented.
+This allows RayRay's story to extend beyond a single network without
+creating unnecessary technical complexity.
+
+More ambitious interoperability remains a possibility if a genuine need
+ever develops.
+
+The Einstein-Rosen Bridge is currently a:
+
+**DREAM**
+
+RayRay has not yet figured out where the tunnel goes.
 
 ---
 
@@ -409,7 +654,8 @@ If RayRay ever requires cross-network functionality, that functionality should b
 
 RayRay has heard stories about places beyond the SOL System.
 
-The homemade star map represents unknown possibilities rather than a predefined multi-chain roadmap.
+The homemade star map represents unknown possibilities rather than a fixed
+multi-chain roadmap.
 
 Possible future exploration could include:
 
@@ -418,60 +664,91 @@ Possible future exploration could include:
 - applications;
 - games;
 - new community experiences;
+- independent services;
 - other blockchain networks;
 - new characters;
-- or ideas that do not exist yet.
+- partner destinations;
+- strange discoveries; and
+- ideas that do not exist yet.
 
 The map is imagination.
 
 It is not architecture.
 
+The Great Exploration is currently a:
+
+**DREAM**
+
+There is still plenty of uncharted space.
+
 ---
 
 # 16. The Crew
 
-RayRay may someday imagine exploring with a Crew.
+RayRay may someday explore with a Crew.
 
 A Crew could eventually represent:
 
 - additional characters;
-- distinct applications;
+- independent projects;
 - community roles;
-- specialized utilities; or
-- additional tokens.
+- specialized applications;
+- collaborators;
+- partner Missions; or
+- additional digital assets with clearly distinct purposes.
 
-No additional RayRay token is currently required or promised.
+No additional RayRay token is currently required or planned.
 
-A future token should only exist if it has a clearly distinguishable purpose that cannot be achieved reasonably through `$RAYRAY` alone.
+A future token should exist only if it serves a clearly distinguishable
+purpose that cannot reasonably be fulfilled by `$RAYRAY`.
 
-RayRay will not create additional tokens merely to create the appearance of an ecosystem.
+RayRay will not create additional tokens merely to create the appearance of
+an ecosystem.
+
+The Crew is currently a:
+
+**DREAM**
+
+For now, RayRay is making friends.
 
 ---
 
 # 17. Mission Control
 
-Mission Control is the possible post-Graduation evolution of RayRay's community.
+Mission Control is the possible post-Graduation evolution of RayRay's
+community.
 
-Mission Control may eventually support:
+Mission Control may someday support:
 
 - RayRay transmissions;
 - project updates;
 - community discussions;
 - polls;
+- artwork;
 - creative contributions;
-- mission ideas;
-- experiments; and
+- Mission ideas;
+- experiments;
+- discoveries; and
 - feedback.
 
-Mission Control does not automatically constitute:
+Mission Control does not automatically create:
 
 - a DAO;
 - token governance;
 - voting rights;
+- ownership rights;
 - revenue rights; or
-- ownership of RayRay.
+- control over RayRay.
 
-Any formal governance functionality would require a separate specification.
+Any formal governance system would require a separate specification,
+technical design, and risk review.
+
+Mission Control is currently a:
+
+**DREAM**
+
+The official X and Telegram channels are RayRay's current communication
+outposts.
 
 ---
 
@@ -491,7 +768,13 @@ THE MOON has no official:
 
 RayRay does not promise to reach THE MOON.
 
-The community may someday decide for itself what the phrase means.
+The community may someday decide for itself what reaching THE MOON means.
+
+Maybe THE MOON is a milestone.
+
+Maybe it is a destination.
+
+Maybe it is something RayRay has not understood yet.
 
 Until then:
 
@@ -501,41 +784,56 @@ Until then:
 
 ---
 
-# 19. What RayRay Does Not Promise
+# 19. Dreams, Possibilities & Commitments
 
-RayRay does not promise:
+RayRay has a lot of ideas.
+
+Ideas are allowed to begin as ideas.
+
+RayRay's current Dreams include possibilities involving:
+
+- the Space Station;
+- Asteroid Mining;
+- the Einstein-Rosen Bridge;
+- exploration;
+- community systems;
+- marketplaces;
+- applications;
+- games;
+- additional characters;
+- integrations;
+- independent destinations;
+- future partners; and
+- ideas that have not yet been discovered.
+
+Dreams should not be interpreted as commitments to deliver those systems.
+
+Likewise, participating in RayRay does not create a promise of:
 
 - token appreciation;
 - investment returns;
 - profit;
-- Graduation;
 - trading volume;
 - liquidity;
 - holder growth;
 - exchange listings;
-- staking;
+- Graduation;
 - yield;
+- staking;
 - reward emissions;
-- a DEX;
-- a swap;
-- a marketplace;
-- NFTs;
-- a Space Station;
-- asteroid mining;
-- a bridge;
-- interoperability;
-- additional tokens;
-- The Crew;
 - governance;
-- Mission Control;
 - partnerships;
-- cross-chain deployment;
+- future applications;
 - continued development; or
 - THE MOON.
 
-RayRay's Dreams are possibilities.
+If a Dream becomes a real Mission, the Mission Manual will change with it.
 
-They are not obligations.
+RayRay can remain optimistic about the future without describing the future
+as already built.
+
+> **Dream first. Build carefully. Update the map when something becomes
+> real.**
 
 ---
 
@@ -543,42 +841,62 @@ They are not obligations.
 
 RayRay is a crypto token project.
 
-Participation may involve substantial risk.
+Crypto assets and the systems surrounding them involve real risk.
 
-Risks may include:
+Those risks may include:
 
-- extreme price volatility;
+- substantial price volatility;
 - partial or total loss of value;
 - limited liquidity;
-- inability to Graduate;
 - insufficient market activity;
-- smart-contract risk;
-- blockchain risk;
+- inability to Graduate;
+- blockchain and network risk;
+- smart-contract and protocol risk;
 - launch-platform risk;
 - AMM and liquidity-pool risk;
 - third-party infrastructure risk;
 - wallet and private-key risk;
 - technical failures;
 - exploits;
-- copycat tokens;
-- loss of community interest;
+- copycat or impersonation tokens;
 - changing platform rules;
-- regulatory changes; and
-- future development never occurring.
+- regulatory change;
+- loss of community interest; and
+- future development not occurring.
 
-Nothing in RayRay's story removes these risks.
+The story is fun.
 
-Cute Moon token.
+The technology and financial risks are real.
 
-Real crypto risk.
+Anyone choosing to interact with RayRay should:
+
+- verify the official mint address;
+- use RayRay's official channels;
+- understand the launch and trading mechanics;
+- protect wallet credentials;
+- avoid sharing seed phrases or private keys;
+- consider personal circumstances;
+- conduct independent research; and
+- make independent decisions.
+
+Nothing in RayRay's story, artwork, community, or future Dreams removes
+those risks.
+
+Nothing in the Mission Manual is individualized financial, investment, tax,
+or legal advice.
+
+> **Cute Moon token. Real crypto risk.**
 
 ---
 
 # 21. Official Verification
 
-After launch, this section will become the authoritative verification reference.
+After launch, this section becomes RayRay's authoritative verification
+reference.
 
 **Project:** RayRay
+
+**Character:** Ray Moon
 
 **Ticker:** RAYRAY
 
@@ -586,11 +904,11 @@ After launch, this section will become the authoritative verification reference.
 
 **Official Mint:** NOT YET LAUNCHED
 
-**Official Website:** https://RayRayMoon.com
+**Official Website:** [RayRayMoon.com](https://RayRayMoon.com)
 
-**Official X:** https://x.com/RayRayMoonSOL
+**Official X:** [RayRay on X](https://x.com/RayRayMoonSOL)
 
-**Official Telegram:** https://t.me/OFFICIALRayRaySOL
+**Official Telegram:** [RayRay Official Channel](https://t.me/OFFICIALRayRaySOL)
 
 **Official Launch Venue:** TBD
 
@@ -598,80 +916,215 @@ After launch, this section will become the authoritative verification reference.
 
 **Graduation Status:** NOT YET
 
-Before interacting with `$RAYRAY`, users should verify the official mint address against RayRay's official channels.
+Before interacting with `$RAYRAY`, users should verify the official mint
+address through RayRay's official website and social channels.
 
-Names, images, tickers, and RayRay artwork alone do not establish that another token is the official RayRay token.
+Names, images, tickers, social accounts, and copied RayRay artwork alone do
+not establish that another token is official.
+
+RayRay will never request:
+
+- seed phrases;
+- private keys;
+- wallet recovery words; or
+- wallet verification through unsolicited direct messages.
+
+The official mint will be published only after RayRay has been successfully
+launched and the resulting address has been verified.
 
 ---
 
 # 22. Change Control
 
-This Mission Manual may evolve as RayRay's real project evolves.
+This Mission Manual may evolve as the real RayRay project evolves.
 
-Historical facts should not be rewritten merely to make RayRay's story appear more successful.
+The Manual should preserve the distinction between:
 
-Future ideas should move from:
+- what RayRay imagined;
+- what RayRay proposed;
+- what RayRay attempted;
+- what RayRay built; and
+- what RayRay completed.
 
-**Dream**
+Historical facts should not be rewritten merely to make the project appear
+more successful.
 
-to:
+Future ideas should move through the documented Mission states only when
+real development supports that change.
 
-**Proposed Mission**
+Completed functionality should be described as completed only after it
+exists and can be verified.
 
-to:
+Technical configuration changes should be documented when they actually
+occur.
 
-**Active Mission**
+When a significant amendment is made, the project should identify:
 
-only when actual development supports that change.
+- what changed;
+- why it changed;
+- when it changed; and
+- whether the change affects token holders or project mechanics.
 
-Completed functionality should be described as completed only after it exists.
+The Manual is a living technical reference.
+
+It is not a tool for rewriting the past.
+
+> **The map changes when the terrain changes.**
 
 ---
 
-# 23. Security and Irrevocability
+# 23. Security and Durable Rules
 
-RayRay should minimize reliance on trust in the creator.
+RayRay should be built so the most important token rules do not depend on
+ongoing trust.
 
-The intended security objective is to remove unnecessary powers wherever
-the selected token and launch infrastructure permit.
+Where the selected launch infrastructure permits, the final configuration
+should seek to establish durable, publicly verifiable rules.
 
-The final configuration should seek to provide:
+The design objective includes:
 
 - fixed token supply;
-- permanently revoked Mint Authority;
-- permanently revoked Freeze Authority;
-- no hidden creator allocation;
+- permanently revoked Mint Authority where applicable;
+- permanently revoked Freeze Authority where applicable;
+- publicly disclosed creator allocation;
+- publicly disclosed creator fees;
 - no undisclosed transfer restrictions;
-- no discretionary holder freezing;
-- no discretionary additional minting;
 - no unnecessary administrative token extensions;
 - verifiable post-Graduation liquidity treatment; and
-- public disclosure of all remaining creator and platform permissions.
+- clear disclosure of any permissions that remain.
 
-Authority revocation must be confirmed on-chain before this Mission Manual describes an authority as revoked.
+On-chain facts should be described as final only after they can be verified.
 
-RayRay should remain safe from foundational token changes even if:
+RayRay's foundational token rules should remain understandable and durable
+as the project grows.
 
-- the creator changes their mind;
-- the creator wallet is compromised;
-- the creator becomes unavailable;
-- the community becomes inactive; or
-- future incentives create pressure to alter the original design.
+The creator may continue to:
 
-The creator may retain the ability to:
-
-- receive disclosed creator fees;
-- maintain the website and official communications;
+- maintain RayRay's website;
 - create artwork and stories;
-- propose future missions; and
+- communicate with the community;
+- receive disclosed creator fees;
+- propose future Missions; and
 - develop separate optional applications.
 
-Those abilities do not include authority to change RayRay's fixed supply,
-freeze holders, withdraw permanent liquidity, or silently rewrite the
-token's foundational rules.
+Those creative and operational responsibilities are separate from the
+foundational rules of the token itself.
 
-> RayRay should not depend on trusting anyone forever, including RayRay's
-> creator.
+The goal is not to remove RayRay's ability to grow.
+
+The goal is to separate growth and creativity from unnecessary control over
+the token's foundational rules.
+
+> **Build the important rules to last. Then keep building the adventure
+> around them.**
+
+---
+
+# 24. Pre-Launch Verification
+
+RayRay should not launch until the following items are reviewed.
+
+## Identity
+
+- [ ] Token name confirmed
+- [ ] Ticker confirmed
+- [ ] Token image confirmed
+- [ ] Description confirmed
+- [ ] Website confirmed
+- [ ] X confirmed
+- [ ] Telegram confirmed
+
+## Wallet and Security
+
+- [ ] Dedicated launch wallet confirmed
+- [ ] Wallet recovery information secured offline
+- [ ] No seed phrase or private key stored in the repository
+- [ ] No seed phrase or private key stored in email or social accounts
+- [ ] Creator-fee destination confirmed
+- [ ] Two-factor authentication enabled on project accounts
+- [ ] Active sessions reviewed
+
+## Launch Configuration
+
+- [ ] Final launch venue confirmed
+- [ ] Pair asset confirmed
+- [ ] Token Program confirmed
+- [ ] Total supply confirmed
+- [ ] Decimals confirmed
+- [ ] Creator allocation confirmed
+- [ ] Mint Authority disposition confirmed
+- [ ] Freeze Authority disposition confirmed
+- [ ] Metadata Authority disposition confirmed
+- [ ] Token extensions reviewed
+- [ ] Unexpected administrative permissions reviewed
+- [ ] Mayhem Mode confirmed OFF
+- [ ] Initial purchase decision confirmed
+
+## Market Mechanics
+
+- [ ] Price-discovery mechanism reviewed
+- [ ] Trading fees reviewed
+- [ ] Creator fees reviewed
+- [ ] Graduation requirement reviewed
+- [ ] Graduation fee reviewed
+- [ ] Migration mechanics reviewed
+- [ ] Post-Graduation market reviewed
+- [ ] Liquidity treatment reviewed
+- [ ] Creator rights after Graduation reviewed
+
+## Public Information
+
+- [ ] Mission Manual reflects final pre-launch facts
+- [ ] Website Flight Status is accurate
+- [ ] Official Mint still reads NOT YET LAUNCHED
+- [ ] Pre-launch social posts do not imply the token already exists
+- [ ] Launch announcement is prepared but not yet published
+- [ ] Post-launch verification procedure is ready
+
+## Final Review
+
+- [ ] Every immutable field reviewed twice
+- [ ] Connected wallet confirmed
+- [ ] Transaction destination confirmed
+- [ ] Transaction details reviewed before signing
+- [ ] Current platform terms reviewed
+- [ ] Launch decision made calmly and deliberately
+
+> **Measure twice. Sign once.**
+
+---
+
+# 25. Post-Launch Verification
+
+After the launch transaction is confirmed:
+
+- [ ] Record the official mint address
+- [ ] Verify the mint through a reliable Solana explorer
+- [ ] Verify total supply
+- [ ] Verify token decimals
+- [ ] Verify Mint Authority
+- [ ] Verify Freeze Authority
+- [ ] Verify metadata
+- [ ] Verify creator allocation
+- [ ] Verify launch venue
+- [ ] Verify initial trading market
+- [ ] Verify creator fees
+- [ ] Publish the official mint on RayRayMoon.com
+- [ ] Publish the official mint on X
+- [ ] Publish the official mint on Telegram
+- [ ] Update Flight Status
+- [ ] Update Mission Manual status
+- [ ] Preserve the launch transaction for future reference
+
+Only after those checks are complete should the project announce:
+
+> **RAYRAY IS BORN**
+
+Birth is the beginning.
+
+The adventure still has to be lived.
+
+---
 
 # Governing Principle
 
