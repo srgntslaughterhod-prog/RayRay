@@ -586,13 +586,13 @@ After launch, this section will become the authoritative verification reference.
 
 **Official Mint:** NOT YET LAUNCHED
 
-**Official Website:** TBD
+**Official Website:** https://rayraymoon.com
 
 **Official X:** https://x.com/RayRayMoonSOL
 
 **Official Telegram:** https://t.me/OFFICIALRayRaySOL
 
-**Official Launch Venue:
+**Official Launch Venue:** TBD
 
 **Official Market:** TBD
 
@@ -628,21 +628,7 @@ Completed functionality should be described as completed only after it exists.
 
 ---
 
-# Governing Principle
-
-> **Dreams describe what RayRay can imagine.**
->
-> **The Mission Manual describes what RayRay has actually built.**
-
-RayRay starts simple.
-
-If the adventure grows, the Manual grows with it.
-
-# A DREAM + SOME TOOLS + QUESTIONABLE ENGINEERING + DETERMINATION.
-
-🌕 🔧 🚀
-
-# Security and Irrevocability
+# 23. Security and Irrevocability
 
 RayRay should minimize reliance on trust in the creator.
 
@@ -686,3 +672,17 @@ token's foundational rules.
 
 > RayRay should not depend on trusting anyone forever, including RayRay's
 > creator.
+
+# Governing Principle
+
+> **Dreams describe what RayRay can imagine.**
+>
+> **The Mission Manual describes what RayRay has actually built.**
+
+RayRay starts simple.
+
+If the adventure grows, the Manual grows with it.
+
+# A DREAM + SOME TOOLS + QUESTIONABLE ENGINEERING + DETERMINATION.
+
+🌕 🔧 🚀
