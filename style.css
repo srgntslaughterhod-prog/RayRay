@@ -509,6 +509,12 @@ h2 {
   font-style: italic;
 }
 
+.chapter-copy .chapter-aside {
+  color: #aeb8c7;
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
 .chapter-copy .chapter-question {
   margin-top: 1.2rem;
   color: var(--white);
