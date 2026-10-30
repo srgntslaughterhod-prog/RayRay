@@ -990,6 +990,11 @@ h2 {
   overflow-wrap: anywhere;
 }
 
+.manual-back-to-top {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
 .manual-document hr {
   height: 1px;
   margin: 2.5rem 0;
