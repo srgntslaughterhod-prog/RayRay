@@ -586,7 +586,7 @@ After launch, this section will become the authoritative verification reference.
 
 **Official Mint:** NOT YET LAUNCHED
 
-**Official Website:** https://rayraymoon.com
+**Official Website:** https://RayRayMoon.com
 
 **Official X:** https://x.com/RayRayMoonSOL
 
