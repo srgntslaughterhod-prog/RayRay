@@ -921,8 +921,8 @@ h2 {
 }
 
 .chat-avatar {
-  width: clamp(2.4rem, 4vw, 3rem);
-  height: clamp(2.4rem, 4vw, 3rem);
+  width: 52px;
+  height: 52px;
   flex: 0 0 auto;
   border: 2px solid #e8bd62;
   border-radius: 50%;
@@ -1755,6 +1755,11 @@ h2 {
   .supplies-art img {
     width: min(100%, 48rem);
     margin-inline: auto;
+  }
+
+  .chat-avatar {
+    width: clamp(2.4rem, 4vw, 3rem);
+    height: clamp(2.4rem, 4vw, 3rem);
   }
 
   .supply-facts {
