@@ -13,6 +13,7 @@ const sectionIds = [
   "journey",
   "dreams",
   "flight-status",
+  "mission-supplies",
   "mission",
   "friends",
 ];
