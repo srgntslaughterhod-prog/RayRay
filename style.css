@@ -39,7 +39,8 @@ a {
 }
 
 a:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+.copy-address:focus-visible {
   outline: 3px solid var(--aqua);
   outline-offset: 5px;
 }
@@ -293,6 +294,104 @@ h1 {
   color: #b7c1cc;
   font-size: 0.98rem;
   font-style: italic;
+}
+
+.home-card {
+  margin-bottom: 1.4rem;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 0.55rem;
+  background: rgb(18 27 44 / 64%);
+}
+
+.home-card h2 {
+  margin-bottom: 0.7rem;
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 720;
+}
+
+.home-details {
+  display: grid;
+  gap: 0.38rem;
+  margin: 0;
+  color: #d4d8e1;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.home-details > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 0.5rem;
+}
+
+.home-details dt {
+  color: #aeb8c7;
+}
+
+.home-details dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.home-address-row dd {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.55rem;
+}
+
+.home-address {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--aqua);
+  font-family: inherit;
+}
+
+.copy-address {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aqua);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.65rem;
+  font-weight: 720;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.copy-address:hover,
+.birthplace-link:hover,
+.home-follow a:hover {
+  color: var(--white);
+}
+
+.home-follow {
+  margin: 0.65rem 0 0;
+  color: #d4d8e1;
+  font-size: 0.76rem;
+}
+
+.home-follow a,
+.birthplace-link {
+  color: var(--aqua);
+  text-decoration: none;
+}
+
+.copy-status {
+  min-height: 1em;
+  margin: 0.25rem 0 0;
+  color: #b7c1cc;
+  font-size: 0.68rem;
+}
+
+.birthplace-link {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  font-weight: 700;
 }
 
 .scroll-link {
