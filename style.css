@@ -810,6 +810,7 @@ h2 {
   font-size: 0.96rem;
   font-weight: 670;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .status-footnote {
@@ -1298,6 +1299,7 @@ h2 {
 .footer-links small {
   color: #8490a2;
   font-size: 0.65rem;
+  overflow-wrap: anywhere;
 }
 
 .footer-signoff {
