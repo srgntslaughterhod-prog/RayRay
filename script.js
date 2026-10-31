@@ -5,9 +5,8 @@ const sectionLinks = [...document.querySelectorAll("[data-section-link]")];
 const disclosureMenus = [
   ...document.querySelectorAll("details.mobile-menu, details.mission-map"),
 ];
-const copyAddressButton = document.querySelector("[data-copy-address]");
+const copyAddressButtons = [...document.querySelectorAll("[data-copy-address]")];
 const mintAddress = document.querySelector(".home-address");
-const copyStatus = document.querySelector("[data-copy-status]");
 
 const sectionIds = [
   "home",
@@ -85,18 +84,27 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-if (
-  copyAddressButton instanceof HTMLButtonElement &&
-  mintAddress instanceof HTMLElement &&
-  copyStatus instanceof HTMLElement
-) {
-  copyAddressButton.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(mintAddress.textContent.trim());
-      copyStatus.textContent = "Address copied.";
-    } catch (error) {
-      copyStatus.textContent = "Unable to copy address. Please copy it manually.";
-      console.error("Unable to copy the RayRay mint address.", error);
+if (mintAddress instanceof HTMLElement) {
+  for (const copyAddressButton of copyAddressButtons) {
+    if (!(copyAddressButton instanceof HTMLButtonElement)) {
+      continue;
     }
-  });
+
+    copyAddressButton.addEventListener("click", async () => {
+      const copyContainer = copyAddressButton.closest("[data-copy-container]");
+      const copyStatus = copyContainer?.querySelector("[data-copy-status]");
+
+      if (!(copyStatus instanceof HTMLElement)) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(mintAddress.textContent.trim());
+        copyStatus.textContent = "Address copied.";
+      } catch (error) {
+        copyStatus.textContent = "Unable to copy address. Please copy it manually.";
+        console.error("Unable to copy the RayRay mint address.", error);
+      }
+    });
+  }
 }
