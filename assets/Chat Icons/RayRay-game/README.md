@@ -21,19 +21,19 @@ the battlefield, with commander slots in two columns. Help text and guide/test
 links are omitted from the gameplay panel.
 The gameplay page itself does not scroll. There is no pause control or automatic
 tab-switch pause. The page opens in setup: choose Easy, Medium (default), or Hard
-below New Game, then press New Game to start. Difficulty is locked during human gameplay.
+below New Game, then press New Game to start. Difficulty is locked during gameplay.
 New Game during play discards the match and returns to setup; press it again to
 start. After a match ends, difficulty unlocks for the next game. Browsers may throttle
 simulation updates in background tabs.
-BOT BATTLE independently starts or restarts an all-bot spectator match, including
-SOL. Speed and difficulty remain selectable while spectating; changes apply only
-when BOT BATTLE is pressed again. Manual upgrades remain disabled. New Game never
+BOT BATTLE independently starts an all-bot spectator match, including SOL.
+During play, press BOT BATTLE to discard the current match and unlock setup.
+Choose speed and difficulty, then press BOT BATTLE again to start a fresh bot match.
+Settings lock while the battle runs. Manual upgrades remain disabled. New Game never
 starts a bot match: from spectator mode it starts a human match with the selected
-faction, or returns to faction setup if none is selected. Faction selection during
-a bot battle prepares the next human match without changing the ongoing battle.
+faction, or returns to faction setup if none is selected.
 Below difficulty, NORMAL (default), FAST, and FASTEST select movement speed for
 all units in either match type: 65, 97.5 (+50%), or 130 (+100%) world units per
-second. Speed locks during human gameplay, unlocks in setup, bot battles, or after a match ends, and
+second. Speed locks during gameplay, unlocks in setup or after a match ends, and
 is retained between matches. Attack and spawn timing do not change.
 Difficulty changes only bot purchase reaction delay: **Easy 1 second**, **Medium
 0.875 seconds**, **Hard 0.75 seconds** of match time after choosing an affordable

@@ -55,22 +55,23 @@
     element("restart").disabled = !ready || ((inSetup || simulation.finished) && !botBattleSelected && selectedSlot === null);
     element("bot-battle").setAttribute("aria-pressed", String(botBattleSelected));
     for (const button of factionButtons) {
-      button.disabled = !ready || (!inSetup && !simulation.finished && !botBattleSelected);
+      button.disabled = !ready || (!inSetup && !simulation.finished);
       button.setAttribute("aria-pressed", String(selectedSlot !== null && button.id === `faction-${FACTIONS[selectedSlot].name}`));
     }
     for (const button of difficultyButtons) {
-      button.disabled = !ready || (!inSetup && !simulation.finished && !botBattleSelected);
+      button.disabled = !ready || (!inSetup && !simulation.finished);
       button.setAttribute("aria-pressed", String(button.id === `difficulty-${difficulty}`));
     }
     for (const button of speedButtons) {
-      button.disabled = !ready || (!inSetup && !simulation.finished && !botBattleSelected);
+      button.disabled = !ready || (!inSetup && !simulation.finished);
       button.setAttribute("aria-pressed", String(button.id === `speed-${speed}`));
     }
     const status = inSetup
-      ? "Choose a faction for New Game, or start BOT BATTLE."
+      ? botBattleSelected ? "BOT BATTLE setup. Set speed and difficulty, then press BOT BATTLE."
+        : "Choose a faction for New Game, or start BOT BATTLE."
       : simulation.finished
       ? simulation.winner === null ? "No bases remain." : `${FACTIONS[simulation.winner].name} wins — last base standing.`
-      : !humanController ? "BOT BATTLE. Change settings, then press BOT BATTLE to apply."
+      : !humanController ? "BOT BATTLE. Press BOT BATTLE to stop and change settings."
       : !simulation.bases[humanSlot].alive ? "Your base was destroyed. Watching the remaining factions."
       : `You command ${human.name}. Your army fights automatically.`;
     if (element("match-status").textContent !== status) element("match-status").textContent = status;
@@ -135,7 +136,7 @@
   });
   for (const button of factionButtons) {
     button.addEventListener("click", () => {
-      if (!ready || (!inSetup && !simulation.finished && !botBattleSelected)) return;
+      if (!ready || (!inSetup && !simulation.finished)) return;
       selectedSlot = FACTIONS.findIndex((faction) => button.id === `faction-${faction.name}`);
       if (inSetup) start(true);
       else updateUI();
@@ -143,18 +144,18 @@
   }
   element("bot-battle").addEventListener("click", () => {
     if (!ready) return;
-    start(false, true);
+    start(!inSetup && !simulation.finished, true);
   });
   for (const button of difficultyButtons) {
     button.addEventListener("click", () => {
-      if (!ready || (!inSetup && !simulation.finished && !botBattleSelected)) return;
+      if (!ready || (!inSetup && !simulation.finished)) return;
       difficulty = button.id.slice("difficulty-".length);
       updateUI();
     });
   }
   for (const button of speedButtons) {
     button.addEventListener("click", () => {
-      if (!ready || (!inSetup && !simulation.finished && !botBattleSelected)) return;
+      if (!ready || (!inSetup && !simulation.finished)) return;
       speed = button.id.slice("speed-".length);
       updateUI();
     });

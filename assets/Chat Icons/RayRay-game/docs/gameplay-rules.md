@@ -13,7 +13,7 @@ V0.1:
 
 - Select SOL, BTC, ETH, or BNB before New Game; there is no initially selected faction.
 - The selected faction is human-controlled; the other three are bots.
-- The selection row is between New Game and BOT BATTLE, and locks during human gameplay.
+- The selection row is between New Game and BOT BATTLE, and locks during gameplay.
 - The choice is retained between matches. BOT BATTLE needs no selection and uses four bots.
 
 Victory condition:
@@ -326,19 +326,19 @@ pending at a time. Recheck affordability and eligibility before execution; cance
 if the purchase is no longer available, the base is eliminated, or the match ends.
 There is no pause control or automatic tab-switch pause. The page opens in setup;
 choose difficulty below New Game and press New Game to start. Difficulty is locked
-during human gameplay and unlocks when the match ends. New Game during human play discards the
+during gameplay and unlocks when the match ends. New Game during human play discards the
 match and returns to setup; pressing it again starts the next match. The selected
 difficulty is retained between matches. Upgrade priorities and economy are unchanged.
-BOT BATTLE independently starts or restarts a spectator match with all four
+BOT BATTLE independently starts a spectator match with all four
 commanders controlled by bots, including SOL. Human upgrades are disabled.
-Speed and difficulty remain selectable in bot battles; pressing BOT BATTLE again
-restarts with those settings. Changing selections does not modify the current match.
-Faction selection prepares the next human match. New Game from a bot battle starts
+Pressing BOT BATTLE during play discards the match and opens setup with settings
+unlocked. Set speed and difficulty, then press BOT BATTLE again to start a fresh
+all-bot match. Settings lock during play. New Game from a bot battle starts
 a human match with that faction, or returns to setup if no faction is selected.
 The speed row below difficulty offers NORMAL (default, 65 world units/second),
 FAST (default speed +50%, 97.5), and FASTEST (+100%, 130).
-Speed applies equally to all units in both match types and is locked during human play.
-It unlocks in setup, bot battles, or after the match ends and is retained for subsequent matches.
+Speed applies equally to all units in both match types and is locked during play.
+It unlocks in setup or after the match ends and is retained for subsequent matches.
 Apart from the FASTEST reaction-delay override above, only movement speed changes;
 attack timing, spawning, collision sizes, and economy
 remain unchanged.
