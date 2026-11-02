@@ -2,26 +2,28 @@
   "use strict";
 
   const GATEWAY_WIDTH_IN_UNITS = 10;
-  const UNIT_RADIUS = 7;
+  const GATEWAY_REFERENCE_UNIT_DIAMETER = 14;
+  const UNIT_RADIUS = 3.5 * 1.1;
   const BALANCE = Object.freeze({
     mapSize: 1000,
     outerWall: 14,
     diamondReach: 334,
     wallRadius: 9,
     unitRadius: UNIT_RADIUS,
-    doorwayWidth: GATEWAY_WIDTH_IN_UNITS * UNIT_RADIUS * 2,
+    doorwayWidth: GATEWAY_WIDTH_IN_UNITS * GATEWAY_REFERENCE_UNIT_DIAMETER,
     baseRadius: 55,
-    baseHP: 500,
+    baseHP: 1000,
     baseRegeneration: 2,
     regenerationDelay: 3,
     spawnInterval: 1.5,
-    movementSpeed: 52,
+    movementSpeed: 65,
     attackInterval: 1,
     attackRange: 8,
     localAggroRadius: 85,
     arenaAggro: true,
     aiInterval: 0.45,
     botInterval: 1.2,
+    botReactionDelay: 0.875,
     initialATK: 1,
     initialDEF: 1,
     initialPoints: 0,
@@ -29,10 +31,10 @@
     healthPerDEF: 3,
     damageBase: 4,
     damagePerATK: 1,
-    combatValuePerLevel: 0.25,
-    unitMilestones: Object.freeze([5, 10, 15, 25]),
+    combatValuePerLevel: 0.125,
+    unitMilestones: Object.freeze([10]),
     statUpgradeCost: (currentLevel) => currentLevel,
-    unitCosts: Object.freeze([10, 20, 30, 50]),
+    unitCosts: Object.freeze([20]),
     fixedStep: 1 / 30,
     collisionPasses: 3,
   });
@@ -153,6 +155,7 @@
       this.units = [];
       this.winner = null;
       this.finished = false;
+      this.openingAdvance = true;
       this.commanders = FACTIONS.map((faction, slot) => ({
         slot, name: faction.name, color: faction.color,
         atk: this.config.initialATK, def: this.config.initialDEF,
@@ -206,7 +209,7 @@
       }
       if (type !== "unit") return { available: false, reason: "Unknown upgrade." };
       const level = commander.production - 1;
-      if (level >= this.config.unitMilestones.length) return { available: false, reason: "Maximum: 5 units per spawn." };
+      if (level >= this.config.unitMilestones.length) return { available: false, reason: `Maximum: ${this.config.unitMilestones.length + 1} units per spawn.` };
       const requirement = this.config.unitMilestones[level], cost = this.config.unitCosts[level];
       return { available: commander.atk >= requirement && commander.def >= requirement && commander.points >= cost, cost, requirement, reason: `Requires ATK ${requirement}, DEF ${requirement}, and ${cost} point${cost === 1 ? "" : "s"}.` };
     }
@@ -239,6 +242,7 @@
     }
 
     selectTarget(unit) {
+      if (this.openingAdvance) return { kind: "rally", entity: this.geometry.center };
       const inArena = this.geometry.inArena(unit);
       let local = null, arena = null;
       for (const enemy of this.units) {
@@ -357,6 +361,7 @@
     }
 
     attack(unit, target) {
+      if (target.kind === "rally") return false;
       const entity = target.entity;
       const range = this.config.unitRadius + (target.kind === "base" ? this.config.baseRadius : this.config.unitRadius) + this.config.attackRange;
       if (unit.cooldown > 0 || distance(unit, entity) > range || !this.geometry.lineClear(unit, entity)) return false;
@@ -386,6 +391,18 @@
           base.nextSpawn += this.config.spawnInterval;
         }
       }
+      if (this.openingAdvance && this.units.some((unit) => unit.hp > 0 && this.units.some((enemy) =>
+        enemy.hp > 0 && enemy.slot !== unit.slot &&
+        distance(unit, enemy) <= this.config.unitRadius * 2 + this.config.attackRange &&
+        this.geometry.lineClear(unit, enemy)))) {
+        this.openingAdvance = false;
+        for (const unit of this.units) {
+          unit.target = null;
+          unit.path = [];
+          unit.thinkAt = this.time;
+        }
+      }
+      if (this.openingAdvance && this.bases.filter((base) => base.alive).length < 2) this.openingAdvance = false;
       // Rotate the processing order so one faction never receives permanent first-strike priority.
       const start = this.units.length ? Math.floor(this.time / this.config.fixedStep) % this.units.length : 0;
       for (let i = 0; i < this.units.length; i++) {
@@ -402,7 +419,7 @@
         if (!unit.target) continue;
         const target = unit.target.entity;
         const range = this.config.unitRadius + (unit.target.kind === "base" ? this.config.baseRadius : this.config.unitRadius) + this.config.attackRange;
-        if (distance(unit, target) <= range && this.geometry.lineClear(unit, target)) this.attack(unit, unit.target);
+        if (unit.target.kind !== "rally" && distance(unit, target) <= range && this.geometry.lineClear(unit, target)) this.attack(unit, unit.target);
         else {
           while (unit.path.length > 1 && distance(unit, unit.path[0]) < this.config.movementSpeed * dt + 2) unit.path.shift();
           const goal = unit.path[0];

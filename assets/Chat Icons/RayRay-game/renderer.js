@@ -20,7 +20,7 @@
 
     async load() {
       [this.mapImage, this.unitImage, ...this.logos] = await Promise.all([
-        loadImage("game-assets/arena-terrain.png"),
+        loadImage("game-assets/reference/arena-terrain (2).png"),
         loadImage("game-assets/reference/unit.png"),
         ...FACTIONS.map((faction) => loadImage(`game-assets/${faction.name.toLowerCase()}-logo.svg`)),
       ]);
@@ -69,21 +69,6 @@
       ctx.clearRect(0, 0, config.mapSize, config.mapSize);
       // The approved map provides the terrain/base artwork; collision geometry is drawn on top.
       ctx.drawImage(this.mapImage, 0, 0, config.mapSize, config.mapSize);
-      // Clear baked-in doorway rocks only inside the configured opening, using arena terrain.
-      for (const gate of map.gates) {
-        const angle = Math.atan2(gate.outside.y - gate.inside.y, gate.outside.x - gate.inside.x);
-        const depth = config.wallRadius * 2 + 8;
-        ctx.save();
-        ctx.translate(gate.x, gate.y);
-        ctx.rotate(angle);
-        ctx.beginPath();
-        ctx.rect(-depth, -config.doorwayWidth / 2, depth * 2, config.doorwayWidth);
-        ctx.clip();
-        ctx.rotate(-angle);
-        ctx.translate(-gate.x, -gate.y);
-        ctx.drawImage(this.mapImage, gate.x - map.center.x, gate.y - map.center.y, config.mapSize, config.mapSize);
-        ctx.restore();
-      }
       ctx.fillStyle = "#10172235";
       ctx.fillRect(0, 0, config.mapSize, config.mapSize);
       ctx.lineCap = "round";
@@ -102,12 +87,6 @@
       ctx.strokeStyle = "#6d7073";
       ctx.lineWidth = config.outerWall * 2;
       ctx.strokeRect(0, 0, config.mapSize, config.mapSize);
-      for (const gate of map.gates) {
-        ctx.beginPath();
-        ctx.arc(gate.x, gate.y, config.doorwayWidth / 2, 0, Math.PI * 2);
-        ctx.fillStyle = "#bdb5a529";
-        ctx.fill();
-      }
       for (const base of simulation.bases) {
         if (!base.alive) {
           ctx.beginPath();
@@ -135,8 +114,9 @@
         ctx.save();
         ctx.translate(unit.x, unit.y);
         ctx.rotate(unit.heading + Math.PI / 2 + (unit.swing > 0 ? Math.sin(unit.swing / 0.22 * Math.PI) * 0.45 : 0));
-        const height = 22 * this.sprites[unit.slot].height / this.sprites[unit.slot].width;
-        ctx.drawImage(this.sprites[unit.slot], -11, -height / 2, 22, height);
+        const width = 22 * 1.1;
+        const height = width * this.sprites[unit.slot].height / this.sprites[unit.slot].width;
+        ctx.drawImage(this.sprites[unit.slot], -width / 2, -height / 2, width, height);
         ctx.restore();
         if (unit.hp < healthFor(commander, config)) {
           ctx.fillStyle = "#111";

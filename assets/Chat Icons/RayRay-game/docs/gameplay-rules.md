@@ -11,8 +11,10 @@ Every match contains exactly four factions:
 
 V0.1:
 
-- SOL = local human (default; no faction-selection screen)
-- BTC, ETH, BNB = bots
+- Select SOL, BTC, ETH, or BNB before New Game; there is no initially selected faction.
+- The selected faction is human-controlled; the other three are bots.
+- The selection row is between New Game and BOT BATTLE, and locks during gameplay.
+- The choice is retained between matches. BOT BATTLE needs no selection and uses four bots.
 
 Victory condition:
 
@@ -55,8 +57,8 @@ Unit attack damage is based on the commander's current ATK.
 
 Displayed ATK remains an integer. Combat uses
 `effectiveATK = 1 + (displayedATK - 1) * BALANCE.combatValuePerLevel`, where
-`BALANCE.combatValuePerLevel` defaults to **0.25**. Level 1 is 1.00 internally;
-levels 2, 3, 5, 10, 15, and 20 are 1.25, 1.50, 2.00, 3.25, 4.50, and 5.75.
+`BALANCE.combatValuePerLevel` defaults to **0.125**. Level 1 is 1.00 internally;
+levels 2, 3, 5, 10, 15, and 20 are 1.125, 1.25, 1.50, 2.125, 2.75, and 3.375.
 Attack damage is `4 + effectiveATK`; the baseline remains 5 damage. Do not display
 internal decimals in the commander UI. Purchase costs use displayed ATK.
 
@@ -87,9 +89,9 @@ DEF increases unit survivability.
 
 Displayed DEF remains an integer. Combat uses
 `effectiveDEF = 1 + (displayedDEF - 1) * BALANCE.combatValuePerLevel`, sharing the
-configurable **0.25** increment with ATK. Internal values follow the same examples
+configurable **0.125** increment with ATK. Internal values follow the same examples
 as ATK. Unit HP is `12 + effectiveDEF * 3`; baseline HP remains 15. Each displayed
-DEF upgrade adds 0.75 HP to existing units and new-unit maximum HP, preserving
+DEF upgrade adds 0.375 HP to existing units and new-unit maximum HP, preserving
 damage already taken. Do not display internal decimals. Purchase costs use
 displayed DEF.
 
@@ -150,24 +152,9 @@ Starting production:
 
 Maximum production:
 
-5 units per spawn
-
-## Upgrade 1
-
-Requirements:
-
-ATK >= 5
-DEF >= 5
-
-Cost:
-
-10 points
-
-Result:
-
 2 units per spawn
 
-## Upgrade 2
+## Single +UNIT Purchase
 
 Requirements:
 
@@ -180,45 +167,11 @@ Cost:
 
 Result:
 
-3 units per spawn
+2 units per spawn
 
-## Upgrade 3
-
-Requirements:
-
-ATK >= 15
-DEF >= 15
-
-Cost:
-
-30 points
-
-Result:
-
-4 units per spawn
-
-## Upgrade 4
-
-Requirements:
-
-ATK >= 25
-DEF >= 25
-
-Cost:
-
-50 points
-
-Result:
-
-5 units per spawn
-
-After purchasing a +UNIT level, the button becomes unavailable until the next milestone requirements are satisfied.
-
-After reaching 5 units per spawn, +UNIT remains permanently unavailable.
-
-Production increases only through purchasing these tiers. Higher ATK or DEF
-never automatically increases production. Each tier requires both stat thresholds,
-its full point cost, and the previous production tier.
+This purchase can occur exactly once. Afterward +UNIT remains permanently
+unavailable, regardless of higher ATK, DEF, or points. Production never exceeds
+2 units per spawn. Higher stats do not automatically increase production.
 
 All +UNIT thresholds use DISPLAYED integer ATK/DEF levels, never the effective
 decimal combat values. Combat scaling does not change prices, eligibility, or
@@ -244,12 +197,23 @@ When stat requirements AND point requirements are satisfied:
 No elaborate unlock animation is required.
 
 The +UNIT button displays current units per spawn, next purchase cost, and
-required ATK/DEF. At five units per spawn it displays Maximum and stays disabled.
+required ATK/DEF. At two units per spawn it displays Maximum and stays disabled.
 Avoid repeating these details in explanatory text around the controls.
 
 ---
 
 # Unit Movement AI
+
+## Opening Advance
+
+Until the first enemy melee contact, every unit moves toward the central arena
+center instead of seeking a base or engaging at aggro range. This includes all
+followers and new waves. Contact requires two living enemy units within ordinary
+unit attack reach and clear line of sight; walls, friendly units, and dead enemies
+cannot trigger it. On contact, clear all opening routes and resume the existing
+combat/aggro and nearest-base rules for every faction simultaneously. This release
+is permanent until New Game. Movement speed and attack timing are unchanged.
+If fewer than two bases remain, do not keep the opening active.
 
 Unit AI should remain deliberately simple.
 
@@ -316,7 +280,7 @@ When appropriate arena combat ends, the unit returns to nearest-base logic.
 
 Initial base HP:
 
-500
+1000
 
 Base regeneration:
 
@@ -324,7 +288,7 @@ Base regeneration:
 
 Maximum:
 
-500 HP
+1000 HP
 
 Bases:
 
@@ -402,6 +366,30 @@ Bots use the same:
 - unit statistics
 
 Bots receive no secret combat bonuses.
+
+After choosing an affordable upgrade, a bot waits for the selected difficulty's
+reaction delay: Easy 1 second, Medium 0.875 seconds (default), Hard 0.75 seconds.
+On FASTEST only, use total delays of Easy 1 second, Medium 0.75 seconds, and
+Hard 0.5 seconds in both normal and bot battles. NORMAL and FAST are unchanged.
+Difficulty affects only this delay, equally for all bots.
+`BALANCE.botReactionDelay` configures this reaction delay;
+the existing `BALANCE.botInterval` remains 1.2 seconds. Only one purchase may be
+pending at a time. Recheck affordability and eligibility before execution; cancel
+if the purchase is no longer available, the base is eliminated, or the match ends.
+There is no pause control or automatic tab-switch pause. The page opens in setup;
+choose difficulty below New Game and press New Game to start. Difficulty is locked
+during gameplay and unlocks when the match ends. New Game during play discards the
+match and returns to setup; pressing it again starts the next match. The selected
+difficulty is retained between matches. Upgrade priorities and economy are unchanged.
+BOT BATTLE, below New Game, starts a spectator match with all four commanders
+controlled by bots, including SOL. Human upgrade inputs are disabled in this mode.
+The speed row below difficulty offers NORMAL (default, 65 world units/second),
+FAST (default speed +35%, 87.75), and FASTEST (+70%, 110.5).
+Speed applies equally to all units in both match types and is locked during play.
+It unlocks in setup or after the match ends and is retained for subsequent matches.
+Apart from the FASTEST reaction-delay override above, only movement speed changes;
+attack timing, spawning, collision sizes, and economy
+remain unchanged.
 
 Bot upgrade strategy must remain easy to modify during testing.
 

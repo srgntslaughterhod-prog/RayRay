@@ -1,35 +1,46 @@
 (() => {
   "use strict";
-  const { Simulation, Renderer, createControllers, DEFAULT_HUMAN_SLOT, FACTIONS } = window.RayRayArena;
+  const { Simulation, Renderer, createControllers, FACTIONS, BALANCE } = window.RayRayArena;
   const element = (id) => document.getElementById(id);
   const renderer = new Renderer(element("arena"));
-  let simulation, controllers, humanController, paused = false, ready = false;
+  const difficultyDelays = Object.freeze({ easy: 1, medium: 0.875, hard: 0.75 });
+  const fastestDifficultyDelays = Object.freeze({ easy: 1, medium: 0.75, hard: 0.5 });
+  const speedMultipliers = Object.freeze({ normal: 1, fast: 1.35, fastest: 1.7 });
+  let simulation, controllers, humanController, ready = false, inSetup = true;
+  let difficulty = "medium";
+  let speed = "normal";
+  let selectedSlot = null;
+  const factionButtons = ["SOL", "BTC", "ETH", "BNB"].map((name) => element(`faction-${name}`));
+  const difficultyButtons = Object.keys(difficultyDelays).map((name) => element(`difficulty-${name}`));
+  const speedButtons = Object.keys(speedMultipliers).map((name) => element(`speed-${name}`));
   let previousTime = 0, accumulator = 0, nextUI = 0, frame = null;
   const cardElements = FACTIONS.map((faction, slot) => {
     const card = document.createElement("article");
     card.className = "faction-card";
     card.style.setProperty("--faction-color", faction.color);
-    card.innerHTML = `<h3>${faction.name}<span>${slot === DEFAULT_HUMAN_SLOT ? "HUMAN" : "BOT"}</span></h3><div class="base-meter"><span></span></div><p class="base-info"></p><p class="army-info"></p>`;
+    card.innerHTML = `<h3>${faction.name}<span>BOT</span></h3><div class="base-meter"><span></span></div><p class="base-info"></p><p class="army-info"></p>`;
     element("factions").append(card);
     return card;
   });
 
   function updateUI() {
-    const humanSlot = humanController.slot;
+    const humanSlot = humanController ? humanController.slot : selectedSlot ?? 0;
     const human = simulation.commanders[humanSlot];
-    element("commander-title").textContent = `${human.name} · Your command`;
+    element("commander-title").textContent = inSetup && selectedSlot === null
+      ? "Choose your faction"
+      : `${human.name} · ${humanController ? "Your command" : "Bot command"}`;
     element("points").textContent = human.points;
     element("attack").textContent = human.atk;
     element("defense").textContent = human.def;
     element("production").textContent = human.production;
     element("production-label").textContent = human.production === 1 ? "unit/spawn" : "units/spawn";
     const unit = simulation.upgradeState(humanSlot, "unit");
-    element("unit-cost").textContent = unit.cost ? `Next: ${unit.cost} points` : human.production === 5 ? "Maximum" : "Unavailable";
+    element("unit-cost").textContent = unit.cost ? `Next: ${unit.cost} points` : human.production === simulation.config.unitMilestones.length + 1 ? "Maximum" : "Unavailable";
     element("unit-requirement").textContent = unit.requirement ? `Needs ATK ${unit.requirement} / DEF ${unit.requirement}` : "";
     for (const type of ["atk", "def", "unit"]) {
       const state = simulation.upgradeState(humanSlot, type);
       const button = element(`upgrade-${type}`);
-      button.disabled = paused || !state.available;
+      button.disabled = inSetup || !humanController || !state.available;
       button.title = state.available ? "" : state.reason;
       if (type !== "unit") {
         const cost = state.cost ?? simulation.config.statUpgradeCost(human[type]);
@@ -47,21 +58,37 @@
     }
     const seconds = Math.floor(simulation.time);
     element("clock").textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
-    element("pause").disabled = simulation.finished;
-    element("pause").textContent = paused ? "Resume" : "Pause";
-    const status = simulation.finished
+    element("restart").disabled = !ready || ((inSetup || simulation.finished) && selectedSlot === null);
+    for (const button of factionButtons) {
+      button.disabled = !ready || (!inSetup && !simulation.finished);
+      button.setAttribute("aria-pressed", String(selectedSlot !== null && button.id === `faction-${FACTIONS[selectedSlot].name}`));
+    }
+    for (const button of difficultyButtons) {
+      button.disabled = !ready || (!inSetup && !simulation.finished);
+      button.setAttribute("aria-pressed", String(button.id === `difficulty-${difficulty}`));
+    }
+    for (const button of speedButtons) {
+      button.disabled = !ready || (!inSetup && !simulation.finished);
+      button.setAttribute("aria-pressed", String(button.id === `speed-${speed}`));
+    }
+    const status = inSetup
+      ? "Choose a faction for New Game, or watch BOT BATTLE."
+      : simulation.finished
       ? simulation.winner === null ? "No bases remain." : `${FACTIONS[simulation.winner].name} wins — last base standing.`
-      : paused ? "Paused. Resume to continue."
+      : !humanController ? "BOT BATTLE. Watching all four bot commanders."
       : !simulation.bases[humanSlot].alive ? "Your base was destroyed. Watching the remaining factions."
       : `You command ${human.name}. Your army fights automatically.`;
     if (element("match-status").textContent !== status) element("match-status").textContent = status;
   }
 
-  function start() {
-    simulation = new Simulation({}, (Date.now() ^ Math.floor(Math.random() * 1000000)) >>> 0);
-    controllers = createControllers();
+  function start(setup, botBattle = false) {
+    inSetup = setup;
+    simulation = new Simulation({
+      botReactionDelay: (speed === "fastest" ? fastestDifficultyDelays : difficultyDelays)[difficulty],
+      movementSpeed: BALANCE.movementSpeed * speedMultipliers[speed],
+    }, (Date.now() ^ Math.floor(Math.random() * 1000000)) >>> 0);
+    controllers = createControllers(botBattle ? null : selectedSlot);
     humanController = controllers.find((controller) => controller.kind === "HUMAN");
-    paused = false;
     accumulator = 0;
     previousTime = 0;
     nextUI = 0;
@@ -73,7 +100,7 @@
   function tick(timestamp) {
     const elapsed = previousTime ? Math.min((timestamp - previousTime) / 1000, 0.1) : 0;
     previousTime = timestamp;
-    if (!paused && !simulation.finished) {
+    if (!inSetup && !simulation.finished) {
       accumulator += elapsed;
       while (accumulator >= simulation.config.fixedStep) {
         for (const controller of controllers) {
@@ -94,24 +121,44 @@
 
   for (const type of ["atk", "def", "unit"]) {
     element(`upgrade-${type}`).addEventListener("click", () => {
-      if (!ready || paused || simulation.finished) return;
+      if (!ready || inSetup || !humanController || simulation.finished) return;
       humanController.request(type);
     });
   }
-  element("pause").addEventListener("click", () => {
-    paused = !paused;
-    humanController.pending.length = 0;
-    accumulator = 0;
-    updateUI();
-  });
-  element("restart").addEventListener("click", () => start());
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && ready && !simulation.finished) {
-      paused = true;
-      humanController.pending.length = 0;
-      updateUI();
+  element("restart").addEventListener("click", () => {
+    if (!ready) return;
+    if ((inSetup || simulation.finished) && selectedSlot === null) {
+      element("command-message").textContent = "Choose a faction before starting New Game.";
+      return;
     }
+    start(!inSetup && !simulation.finished);
   });
+  for (const button of factionButtons) {
+    button.addEventListener("click", () => {
+      if (!ready || (!inSetup && !simulation.finished)) return;
+      selectedSlot = FACTIONS.findIndex((faction) => button.id === `faction-${faction.name}`);
+      if (inSetup) start(true);
+      else updateUI();
+    });
+  }
+  element("bot-battle").addEventListener("click", () => {
+    if (!ready) return;
+    start(false, true);
+  });
+  for (const button of difficultyButtons) {
+    button.addEventListener("click", () => {
+      if (!ready || (!inSetup && !simulation.finished)) return;
+      difficulty = button.id.slice("difficulty-".length);
+      updateUI();
+    });
+  }
+  for (const button of speedButtons) {
+    button.addEventListener("click", () => {
+      if (!ready || (!inSetup && !simulation.finished)) return;
+      speed = button.id.slice("speed-".length);
+      updateUI();
+    });
+  }
   const resize = new ResizeObserver(() => {
     renderer.resize();
     if (ready) renderer.render(simulation);
@@ -126,7 +173,8 @@
     renderer.resize();
     ready = true;
     element("restart").disabled = false;
-    start();
+    element("bot-battle").disabled = false;
+    start(true);
     frame = requestAnimationFrame(tick);
   }).catch((error) => {
     ready = false;

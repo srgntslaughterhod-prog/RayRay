@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Play RayRay Arena: command a faction against three bots, or watch an all-bot battle." />
+    <base href="../assets/Chat%20Icons/RayRay-game/" />
+    <title>RayRay Arena — Playtest</title>
+    <link rel="stylesheet" href="arena.css" />
+    <script src="simulation.js" defer></script>
+    <script src="controllers.js" defer></script>
+    <script src="renderer.js" defer></script>
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="game-layout">
+      <section class="battlefield" aria-label="Autonomous four-faction battlefield">
+        <canvas id="arena" aria-label="RayRay Arena battlefield. Army and base status are listed in the commander panel."></canvas>
+        <p class="arena-caption">RAYRAY ARENA <span>V0.1 · LOCAL PLAYTEST</span></p>
+      </section>
+      <aside class="command-panel" aria-label="Commander controls">
+        <header>
+          <a class="arena-back-link" href="../../../index.html">&larr; Back to RayRay</a>
+          <h1>RayRay Arena</h1>
+          <p>Four bases. One survivor.</p>
+        </header>
+        <p id="match-status" role="status" aria-live="polite">Loading approved artwork…</p>
+        <p class="match-clock">Match time <strong id="clock">0:00</strong></p>
+        <section class="human-controls" aria-labelledby="commander-title">
+          <h2 id="commander-title">Choose your faction</h2>
+          <div class="commander-stats">
+            <span>Points <strong id="points">0</strong></span>
+          </div>
+          <div class="upgrade-buttons">
+            <button id="upgrade-atk" type="button" disabled>ATK <strong id="attack">1</strong><small>Loading cost…</small></button>
+            <button id="upgrade-def" type="button" disabled>DEF <strong id="defense">1</strong><small>Loading cost…</small></button>
+            <button id="upgrade-unit" type="button" disabled>+UNIT <small><strong id="production">1</strong> <span id="production-label">unit/spawn</span></small><small id="unit-cost">Loading cost…</small><small id="unit-requirement"></small></button>
+          </div>
+          <div class="session-controls">
+            <button id="restart" type="button" disabled>New Game</button>
+            <div class="faction-options" role="group" aria-label="Your faction">
+              <button id="faction-SOL" type="button" aria-pressed="false" disabled>SOL</button>
+              <button id="faction-BTC" type="button" aria-pressed="false" disabled>BTC</button>
+              <button id="faction-ETH" type="button" aria-pressed="false" disabled>ETH</button>
+              <button id="faction-BNB" type="button" aria-pressed="false" disabled>BNB</button>
+            </div>
+            <button id="bot-battle" type="button" disabled>BOT BATTLE</button>
+            <div class="difficulty-options" role="group" aria-label="Match difficulty">
+              <button id="difficulty-easy" type="button" aria-pressed="false" disabled>Easy</button>
+              <button id="difficulty-medium" type="button" aria-pressed="true" disabled>Medium</button>
+              <button id="difficulty-hard" type="button" aria-pressed="false" disabled>Hard</button>
+            </div>
+            <div class="speed-options" role="group" aria-label="Unit movement speed">
+              <button id="speed-normal" type="button" aria-pressed="true" disabled>NORMAL</button>
+              <button id="speed-fast" type="button" aria-pressed="false" disabled>FAST</button>
+              <button id="speed-fastest" type="button" aria-pressed="false" disabled>FASTEST</button>
+            </div>
+          </div>
+          <p id="command-message" role="status" aria-live="polite"></p>
+        </section>
+        <section aria-labelledby="factions-title">
+          <h2 id="factions-title">Commander slots</h2>
+          <div id="factions"></div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

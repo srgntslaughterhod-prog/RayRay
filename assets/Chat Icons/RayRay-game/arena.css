@@ -11,16 +11,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 a { color: #81d9ea; }
 button:focus-visible, a:focus-visible { outline: 3px solid #81d9ea; outline-offset: 3px; }
-.game-layout { width: 100vw; height: 100vh; height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
+.game-layout { width: 100vw; height: 100vh; height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
 .battlefield { position: relative; display: grid; place-items: center; min-width: 0; min-height: 0; overflow: hidden; background: #070b10; }
 #arena { display: block; }
 .arena-caption { position: absolute; left: 12px; top: 4px; margin: 0; padding: 6px 9px; background: #070b10de; font-size: 11px; font-weight: 800; letter-spacing: .09em; pointer-events: none; }
 .arena-caption span { color: #93a2b8; font-weight: 500; margin-left: 8px; }
-.command-panel { min-height: 0; overflow-y: auto; padding: 16px; background: #141d29; border-left: 1px solid #2b394b; }
+.command-panel { min-height: 0; overflow-y: auto; padding: 12px; background: #141d29; border-left: 1px solid #2b394b; }
 h1 { font-size: 23px; margin: 0; }
-h2 { font-size: 13px; letter-spacing: .07em; text-transform: uppercase; margin: 18px 0 10px; }
+.arena-back-link { display: inline-block; margin-bottom: 6px; font-size: 12px; }
+h2 { font-size: 13px; letter-spacing: .07em; text-transform: uppercase; margin: 12px 0 8px; }
 header p { color: #aab8cb; margin: 6px 0 12px; font-size: 13px; }
-#match-status { padding: 10px; background: #202c3d; border-left: 3px solid #81d9ea; font-size: 13px; line-height: 1.4; }
+#match-status { margin: 8px 0; padding: 8px; background: #202c3d; border-left: 3px solid #81d9ea; font-size: 12px; line-height: 1.4; }
 .match-clock { display: flex; justify-content: space-between; font-size: 12px; color: #aab8cb; }
 .commander-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
 .commander-stats span { padding: 8px; border: 1px solid #304057; display: flex; justify-content: space-between; }
@@ -32,19 +33,50 @@ button:disabled { background: #1b2431; color: #748096; border-color: #334052; cu
 button small { display: block; font-size: 10px; margin-top: 4px; font-weight: 500; }
 #upgrade-unit:not(:disabled) { background: #b48729; color: #fff; border-color: #ffdc7c; box-shadow: 0 0 12px #ffdc7c35; }
 #command-message { font-size: 11px; color: #bbc6d6; line-height: 1.5; }
-#command-message { min-height: 16px; color: #ffd17c; }
-.faction-card { border-left: 3px solid var(--faction-color); padding: 7px 9px; margin-bottom: 8px; background: #1c2736; font-size: 11px; line-height: 1.7; }
+#command-message { min-height: 16px; margin: 4px 0; color: #ffd17c; }
+#command-message:empty { display: none; }
+.faction-card { border-left: 3px solid var(--faction-color); padding: 6px 8px; margin-bottom: 6px; background: #1c2736; font-size: 11px; line-height: 1.5; }
 .faction-card h3 { margin: 0; font-size: 12px; }
 .faction-card h3 span { float: right; color: #aab8cb; font-size: 10px; }
 .faction-card p { margin: 0; }
 .faction-card.eliminated { opacity: .6; }
 .base-meter { height: 5px; background: #0a111a; margin: 4px 0; }
 .base-meter span { display: block; height: 100%; background: var(--faction-color); }
-.session-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
-.instructions { font-size: 11px; color: #9dacc0; line-height: 1.5; }
+.session-controls { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 8px 0; }
+.difficulty-options, .speed-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.faction-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.faction-options button { min-height: 32px; font-size: 12px; }
+.faction-options button[aria-pressed="true"] { border-color: #ffdc7c; box-shadow: inset 0 0 0 1px #ffdc7c; }
+.difficulty-options button, .speed-options button { min-height: 32px; font-size: 12px; }
+.difficulty-options button[aria-pressed="true"], .speed-options button[aria-pressed="true"] { border-color: #ffdc7c; box-shadow: inset 0 0 0 1px #ffdc7c; }
+@media (max-height: 850px) {
+  .command-panel { padding: 8px 12px; }
+  .match-clock { margin: 8px 0; }
+  .faction-card { padding: 4px 8px; margin-bottom: 4px; }
+  .upgrade-buttons { margin-top: 8px; }
+  .upgrade-buttons button { padding: 4px 2px; font-size: 14px; }
+  button small { margin-top: 2px; }
+  .session-controls { gap: 4px; margin: 4px 0; }
+  header p { margin: 4px 0 6px; }
+}
 @media (max-width: 700px) {
-  .game-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 190px; }
+  .game-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(90px, 1fr) auto; }
   .command-panel { border-left: 0; border-top: 1px solid #2b394b; padding: 10px 14px; }
-  .command-panel header, .arena-caption span { display: none; }
+  .arena-caption span { display: none; }
   .human-controls h2 { margin-top: 8px; }
+  #factions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+  .faction-card { margin-bottom: 0; }
+}
+@media (max-height: 850px) {
+  .command-panel { padding-top: 6px; padding-bottom: 6px; }
+  #factions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+  .faction-card { margin-bottom: 0; }
+  h2 { margin: 8px 0 6px; }
+}
+@media (max-height: 750px) and (min-width: 701px) {
+  .session-controls > button { min-height: 36px; }
+  .session-controls [role="group"] button { min-height: 28px; }
+  .match-clock { margin: 4px 0; }
+  #match-status { padding: 6px; margin: 4px 0; }
+  .faction-card { padding: 4px; font-size: 10px; line-height: 1.4; }
 }

@@ -3,50 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RayRay Arena V0.1 — Local Playtest</title>
-    <link rel="stylesheet" href="arena.css" />
-    <script src="simulation.js" defer></script>
-    <script src="controllers.js" defer></script>
-    <script src="renderer.js" defer></script>
-    <script src="game.js" defer></script>
+    <meta http-equiv="refresh" content="0; url=../../../RayRayArena/index.html" />
+    <title>RayRay Arena</title>
   </head>
   <body>
-    <main class="game-layout">
-      <section class="battlefield" aria-label="Autonomous four-faction battlefield">
-        <canvas id="arena" aria-label="RayRay Arena battlefield. Army and base status are listed in the commander panel."></canvas>
-        <p class="arena-caption">RAYRAY ARENA <span>V0.1 · LOCAL PLAYTEST</span></p>
-      </section>
-      <aside class="command-panel" aria-label="Commander controls">
-        <header>
-          <h1>RayRay Arena</h1>
-          <p>Four bases. One survivor.</p>
-        </header>
-        <p id="match-status" role="status" aria-live="polite">Loading approved artwork…</p>
-        <p class="match-clock">Match time <strong id="clock">0:00</strong></p>
-        <section class="human-controls" aria-labelledby="commander-title">
-          <h2 id="commander-title">SOL · Your command</h2>
-          <div class="commander-stats">
-            <span>Points <strong id="points">0</strong></span>
-          </div>
-          <div class="upgrade-buttons">
-            <button id="upgrade-atk" type="button" disabled>ATK <strong id="attack">1</strong><small>Loading cost…</small></button>
-            <button id="upgrade-def" type="button" disabled>DEF <strong id="defense">1</strong><small>Loading cost…</small></button>
-            <button id="upgrade-unit" type="button" disabled>+UNIT <small><strong id="production">1</strong> <span id="production-label">unit/spawn</span></small><small id="unit-cost">Loading cost…</small><small id="unit-requirement"></small></button>
-          </div>
-          <p id="command-message" role="status" aria-live="polite"></p>
-        </section>
-        <section aria-labelledby="factions-title">
-          <h2 id="factions-title">Commander slots</h2>
-          <div id="factions"></div>
-        </section>
-        <div class="session-controls">
-          <button id="pause" type="button" disabled>Pause</button>
-          <button id="restart" type="button" disabled>New match</button>
-        </div>
-        <p class="instructions">The army fights by itself. Enemy unit kills earn 1 point. Spend points on ATK, DEF, and +UNIT. Base damage earns no points.</p>
-        <p class="instructions">Spawn interval stays fixed. Defenders can accumulate behind blocked doors. A destroyed base stops spawning; its surviving units keep fighting.</p>
-        <p class="instructions"><a href="tests.html">Run simulation tests</a> · <a href="README.md">Prototype guide</a></p>
-      </aside>
-    </main>
+    <p><a href="../../../RayRayArena/index.html">Open RayRay Arena</a></p>
   </body>
 </html>

@@ -26,19 +26,37 @@
       this.slot = slot;
       this.kind = "BOT";
       this.nextDecision = 0;
+      this.pending = null;
     }
 
     update(simulation) {
-      if (simulation.time < this.nextDecision || !simulation.bases[this.slot].alive || simulation.finished) return [];
+      if (!simulation.bases[this.slot].alive || simulation.finished) {
+        this.pending = null;
+        return [];
+      }
+      if (this.pending) {
+        if (!simulation.upgradeState(this.slot, this.pending.type).available) {
+          this.pending = null;
+          return [];
+        }
+        if (simulation.time < this.pending.purchaseAt) return [];
+        const { type } = this.pending;
+        this.pending = null;
+        return [simulation.purchase(this.slot, type)];
+      }
+      if (simulation.time < this.nextDecision) return [];
       this.nextDecision = simulation.time + simulation.config.botInterval;
       const commander = simulation.commanders[this.slot];
-      if (simulation.upgradeState(this.slot, "unit").available) return [simulation.purchase(this.slot, "unit")];
       const next = simulation.upgradeState(this.slot, "unit");
-      // Save the production cost when the next milestone has already been reached.
-      if (next.requirement && commander.atk >= next.requirement && commander.def >= next.requirement) return [];
-      const type = commander.atk < commander.def ? "atk" : commander.def < commander.atk ? "def" : simulation.random() < 0.5 ? "atk" : "def";
-      if (!simulation.upgradeState(this.slot, type).available) return [];
-      return [simulation.purchase(this.slot, type)];
+      let type = "unit";
+      if (!next.available) {
+        // Save the production cost when the next milestone has already been reached.
+        if (next.requirement && commander.atk >= next.requirement && commander.def >= next.requirement) return [];
+        type = commander.atk < commander.def ? "atk" : commander.def < commander.atk ? "def" : simulation.random() < 0.5 ? "atk" : "def";
+        if (!simulation.upgradeState(this.slot, type).available) return [];
+      }
+      this.pending = { type, purchaseAt: simulation.time + simulation.config.botReactionDelay };
+      return [];
     }
   }
 
