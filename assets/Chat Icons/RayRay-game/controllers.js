@@ -47,14 +47,8 @@
       if (simulation.time < this.nextDecision) return [];
       this.nextDecision = simulation.time + simulation.config.botInterval;
       const commander = simulation.commanders[this.slot];
-      const next = simulation.upgradeState(this.slot, "unit");
-      let type = "unit";
-      if (!next.available) {
-        // Save the production cost when the next milestone has already been reached.
-        if (next.requirement && commander.atk >= next.requirement && commander.def >= next.requirement) return [];
-        type = commander.atk < commander.def ? "atk" : commander.def < commander.atk ? "def" : simulation.random() < 0.5 ? "atk" : "def";
-        if (!simulation.upgradeState(this.slot, type).available) return [];
-      }
+      const type = commander.atk < commander.def ? "atk" : commander.def < commander.atk ? "def" : simulation.random() < 0.5 ? "atk" : "def";
+      if (!simulation.upgradeState(this.slot, type).available) return [];
       this.pending = { type, purchaseAt: simulation.time + simulation.config.botReactionDelay };
       return [];
     }

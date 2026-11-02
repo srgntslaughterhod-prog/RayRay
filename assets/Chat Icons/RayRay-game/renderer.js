@@ -114,7 +114,7 @@
         ctx.save();
         ctx.translate(unit.x, unit.y);
         ctx.rotate(unit.heading + Math.PI / 2 + (unit.swing > 0 ? Math.sin(unit.swing / 0.22 * Math.PI) * 0.45 : 0));
-        const width = 22 * 1.1;
+        const width = 22 * 1.1 * 1.15 * 1.15;
         const height = width * this.sprites[unit.slot].height / this.sprites[unit.slot].width;
         ctx.drawImage(this.sprites[unit.slot], -width / 2, -height / 2, width, height);
         ctx.restore();

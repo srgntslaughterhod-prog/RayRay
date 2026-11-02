@@ -74,15 +74,15 @@
     sim.step(sim.config.fixedStep);
     assert(!sim.openingAdvance && sim.selectTarget(a).kind === "unit", "Living enemy melee contact restores existing aggro.");
   });
-  test("Units retain movement speed and use 10% larger collision footprints", () => {
+  test("Units retain movement speed and use 15% larger collision footprints", () => {
     const sim = new Simulation();
-    assert(sim.config.movementSpeed === 65 && sim.config.unitRadius === 3.5 * 1.1, "Speed unchanged and radius increased by exactly 10%.");
+    assert(sim.config.movementSpeed === 65 && sim.config.unitRadius === 3.5 * 1.1 * 1.15 * 1.15, "Speed unchanged and radius increased by another 15%.");
     assert(sim.config.doorwayWidth === 140 && sim.config.spawnInterval === 1.5 && sim.config.attackInterval === 1, "Gateways and timers unchanged.");
     const unit = placed(sim, 0, 400, 500);
     for (let i = 0; i < 30; i++) sim.move(unit, { x: 600, y: 500 }, sim.config.fixedStep);
     assert(close(unit.x, 465) && close(unit.y, 500), "Travels 65 world units in one second.");
     assert(sim.canOccupy({ x: unit.x + sim.config.unitRadius * 2, y: unit.y }), "Full physical diameter allows legal spacing.");
-    assert(!sim.canOccupy({ x: unit.x + 7, y: unit.y }), "Previous seven-unit spacing now overlaps.");
+    assert(!sim.canOccupy({ x: unit.x + 8.855, y: unit.y }), "Previous spacing now overlaps.");
   });
   test("Exactly four identical faction slots and replaceable commander controllers", () => {
     const sim = new Simulation();
@@ -121,12 +121,12 @@
     assert(sim.commanders.every((commander) => commander.atk === 2 && commander.points === 0), "All factions pay for their upgrades.");
   });
   test("Movement speed presets preserve collision, attack and spawn timing", () => {
-    for (const [multiplier, expected] of [[1, 65], [1.35, 87.75], [1.7, 110.5]]) {
+    for (const [multiplier, expected] of [[1, 65], [1.5, 97.5], [2, 130]]) {
       const sim = new Simulation({ movementSpeed: 65 * multiplier, spawnInterval: 1000 });
       const unit = placed(sim, 0, 400, 500);
       for (let i = 0; i < 30; i++) sim.move(unit, { x: 650, y: 500 }, sim.config.fixedStep);
       assert(close(unit.x, 400 + expected) && close(unit.y, 500), "Exact selected speed over one second.");
-      assert(sim.config.attackInterval === 1 && sim.config.unitRadius === 3.5 * 1.1 && sim.config.doorwayWidth === 140, "Other balance unchanged.");
+      assert(sim.config.attackInterval === 1 && sim.config.unitRadius === 3.5 * 1.1 * 1.15 * 1.15 && sim.config.doorwayWidth === 140, "Other balance unchanged.");
       const blocked = new Simulation({ movementSpeed: expected });
       const mover = placed(blocked, 0, 400, 500);
       placed(blocked, 1, 450, 500);
@@ -240,13 +240,12 @@
     Object.assign(tuned.commanders[0], { atk: 3, def: 3 });
     assert(damageFor(tuned.commanders[0], tuned.config) === 6 && healthFor(tuned.commanders[0], tuned.config) === 18, "Shared scaling constant is configurable.");
   });
-  test("+UNIT milestones use displayed levels, never internal combat values", () => {
+  test("+UNIT purchases are removed at every displayed level", () => {
     for (const combatValuePerLevel of [0.125, 0.5]) {
       const sim = new Simulation({ combatValuePerLevel }), commander = sim.commanders[2];
-      for (const [index, level] of [10].entries()) {
+      for (const level of [1, 10, 100]) {
         Object.assign(commander, { atk: level, def: level, points: 20 });
-        assert(combatValueFor(level, sim.config) < level, "Internal value is below the displayed milestone.");
-        assert(sim.purchase(2, "unit").ok && commander.production === index + 2 && commander.points === 0, "Displayed milestone buys the unchanged production tier.");
+        assert(!sim.purchase(2, "unit").ok && commander.production === 1 && commander.points === 20, "Removed upgrade never changes production or spends points.");
       }
     }
   });
@@ -272,40 +271,26 @@
     }
   });
   test("Economy configuration is shared and high stats do not automatically increase production", () => {
-    const sim = new Simulation({ statUpgradeCost: () => 7, unitCosts: [8] });
+    const sim = new Simulation({ statUpgradeCost: () => 7 });
     Object.assign(sim.commanders[0], { atk: 100, def: 100, points: 8 });
     assert(sim.upgradeState(0, "atk").cost === 7 && sim.upgradeState(0, "def").cost === 7, "Shared tunable formula.");
-    assert(sim.commanders[0].production === 1 && sim.upgradeState(0, "unit").cost === 8, "High stats still require first tier purchase.");
-    assert(sim.purchase(0, "unit").ok && sim.commanders[0].production === 2, "Purchase increases production by exactly one.");
+    assert(sim.commanders[0].production === 1 && !sim.upgradeState(0, "unit").available, "High stats cannot increase production.");
   });
-  test("Single +UNIT purchase requires displayed 10/10 and 20 points, then caps permanently at two", () => {
+  test("Every faction rejects removed production upgrades without mutation", () => {
     const sim = new Simulation(), commander = sim.commanders[0];
-    for (let level = 0; level < 1; level++) {
-      const requirement = 10, cost = 20;
-      Object.assign(commander, { atk: requirement, def: requirement - 1, points: cost });
-      assert(!sim.upgradeState(0, "unit").available, "Both stats required.");
-      commander.def = requirement;
-      commander.atk = requirement - 1;
-      assert(!sim.purchase(0, "unit").ok, "ATK threshold also required.");
-      commander.atk = requirement;
-      commander.points = cost - 1;
-      assert(!sim.upgradeState(0, "unit").available, "Full point cost required.");
-      commander.points = cost;
-      assert(sim.upgradeState(0, "unit").available && sim.purchase(0, "unit").ok, "Milestone purchase.");
-      assert(commander.production === level + 2 && commander.points === 0, "Production and point debit.");
-      assert(!sim.upgradeState(0, "unit").available, "Button locks again.");
+    for (let slot = 0; slot < 4; slot++) {
+      Object.assign(sim.commanders[slot], { atk: 100, def: 100, points: 100 });
+      assert(!sim.purchase(slot, "unit").ok && sim.commanders[slot].production === 1 && sim.commanders[slot].points === 100, "One unit per spawn is permanent.");
     }
-    Object.assign(commander, { atk: 100, def: 100, points: 100 });
-    assert(!sim.purchase(0, "unit").ok && commander.production === 2 && commander.points === 100, "Two is permanent maximum; no points spent.");
   });
-  test("Production upgrades change batch size, never the fixed timer", () => {
+  test("High stats and points preserve one unit per fixed spawn event", () => {
     const sim = new Simulation({ movementSpeed: 0 });
     Object.assign(sim.commanders[0], { atk: 10, def: 10, points: 20 });
     const due = sim.bases[0].nextSpawn;
-    assert(sim.purchase(0, "unit").ok, "Production purchase succeeds.");
-    assert(sim.bases[0].nextSpawn === due && sim.config.spawnInterval === 1.5, "Timer unchanged by production upgrade.");
+    assert(!sim.purchase(0, "unit").ok, "Production purchase rejected.");
+    assert(sim.bases[0].nextSpawn === due && sim.config.spawnInterval === 1.5, "Timer unchanged.");
     advance(sim, 3);
-    assert(sim.units.filter((unit) => unit.slot === 0).length === 4, "Two units at each regular event.");
+    assert(sim.units.filter((unit) => unit.slot === 0).length === 2, "One unit at each regular event.");
     assert(sim.units.filter((unit) => unit.slot === 1).length === 2, "Other factions still produce one.");
   });
   test("Default spawn frequency doubles without changing production, movement, or combat speed", () => {
@@ -349,12 +334,11 @@
       }
     }
   });
-  test("Configurable spawn interval preserves two-unit batches and front-first placement", () => {
+  test("Configurable spawn interval preserves single-unit events and front-first placement", () => {
     const sim = new Simulation({ spawnInterval: 0.5, movementSpeed: 0 });
-    sim.commanders[0].production = 2;
     advance(sim, 0.5);
     const units = sim.units.filter((unit) => unit.slot === 0);
-    assert(units.length === 2 && sim.bases[0].nextSpawn === 1, "Two units per configurable regular event.");
+    assert(units.length === 1 && sim.bases[0].nextSpawn === 1, "One unit per configurable regular event.");
     const base = sim.bases[0];
     assert(units.every((unit) => distance(unit, base) <= sim.config.baseRadius + sim.config.unitRadius + 0.201), "Entire wave stays in immediate base-front zone.");
     assert(units.every((unit, i) => i === 0 || distance(unit, base) >= distance(units[i - 1], base) - 0.001), "Batch uses next closest base positions.");
@@ -618,14 +602,11 @@
     Object.assign(sim.commanders[1], { atk: 10, def: 10, points: 19 });
     sim.time = 2;
     bot.update(sim);
-    assert(sim.commanders[1].production === 1 && sim.commanders[1].points === 19, "Bot saves until full production cost is available.");
-    sim.commanders[1].points = 20;
-    sim.time = 4;
+    assert(sim.commanders[1].production === 1 && sim.commanders[1].points === 19, "Stat purchase waits for reaction.");
+    sim.time = 2.875;
     bot.update(sim);
-    assert(sim.commanders[1].production === 1 && sim.commanders[1].points === 20, "Affordable production waits for reaction.");
-    sim.time = 4.875;
-    bot.update(sim);
-    assert(sim.commanders[1].production === 2 && sim.commanders[1].points === 0, "Bot pays same milestone cost.");
+    assert(sim.commanders[1].production === 1 && sim.commanders[1].points === 9 &&
+      sim.commanders[1].atk + sim.commanders[1].def === 21, "Bot buys a stat for the normal cost instead of saving for production.");
   });
   test("Bots wait the default Medium delay after selecting each affordable upgrade without queueing duplicates", () => {
     const sim = new Simulation(), bot = new BotController(1), commander = sim.commanders[1];
@@ -686,7 +667,7 @@
     sim.step(10);
     assert(sim.time === time && !sim.purchase(0, "atk").ok, "Finished match frozen.");
   });
-  test("Seeded default match sustains combat and crosses gateways with production capped at two", () => {
+  test("Seeded default match sustains combat and crosses gateways with fixed production", () => {
     const sim = new Simulation({}, 42);
     const controllers = createControllers();
     let earlierKills = 0;
@@ -695,7 +676,7 @@
       sim.step(sim.config.fixedStep);
       if (i === 2699) earlierKills = sim.commanders.reduce((sum, commander) => sum + commander.kills, 0);
     }
-    assert(sim.commanders.every((commander) => commander.production <= 2), "No faction can unlock a third unit per spawn.");
+    assert(sim.commanders.every((commander) => commander.production === 1), "All factions retain one unit per spawn.");
     const kills = sim.commanders.reduce((sum, commander) => sum + commander.kills, 0);
     assert(kills > 100 && kills > earlierKills, "Actual combat continues during the final 30 seconds; no movement deadlock.");
     assert(sim.units.some((unit) => sim.geometry.inArena(unit)), "Armies cross gateways and fight in the arena.");

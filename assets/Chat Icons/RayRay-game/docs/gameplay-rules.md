@@ -13,7 +13,7 @@ V0.1:
 
 - Select SOL, BTC, ETH, or BNB before New Game; there is no initially selected faction.
 - The selected faction is human-controlled; the other three are bots.
-- The selection row is between New Game and BOT BATTLE, and locks during gameplay.
+- The selection row is between New Game and BOT BATTLE, and locks during human gameplay.
 - The choice is retained between matches. BOT BATTLE needs no selection and uses four bots.
 
 Victory condition:
@@ -36,7 +36,6 @@ Points are used for:
 
 - ATK
 - DEF
-- +UNIT
 
 Base damage does not award points unless explicitly changed after playtesting.
 
@@ -140,65 +139,15 @@ Weapons provide the clearest visual progression.
 
 ---
 
-# +UNIT
+# Production
 
-The spawn timer NEVER changes.
+Every living base produces exactly one unit per regular spawn event, provided
+legal space is available. +UNIT is removed: there are no production purchases,
+milestone requirements, or production upgrade controls. Bots spend points only
+on ATK and DEF and do not save for production upgrades.
 
-The commander increases the number of units created during each spawn event.
-
-Starting production:
-
-1 unit per spawn
-
-Maximum production:
-
-2 units per spawn
-
-## Single +UNIT Purchase
-
-Requirements:
-
-ATK >= 10
-DEF >= 10
-
-Cost:
-
-20 points
-
-Result:
-
-2 units per spawn
-
-This purchase can occur exactly once. Afterward +UNIT remains permanently
-unavailable, regardless of higher ATK, DEF, or points. Production never exceeds
-2 units per spawn. Higher stats do not automatically increase production.
-
-All +UNIT thresholds use DISPLAYED integer ATK/DEF levels, never the effective
-decimal combat values. Combat scaling does not change prices, eligibility, or
-production limits.
-
-The shared ATK/DEF cost formula and +UNIT costs are centralized in the
-`BALANCE` configuration in [simulation.js](../simulation.js) for playtesting.
-
----
-
-# +UNIT Interface Behavior
-
-When unavailable:
-
-- dark
-- disabled
-
-When stat requirements AND point requirements are satisfied:
-
-- bright
-- active
-
-No elaborate unlock animation is required.
-
-The +UNIT button displays current units per spawn, next purchase cost, and
-required ATK/DEF. At two units per spawn it displays Maximum and stays disabled.
-Avoid repeating these details in explanatory text around the controls.
+The spawn timer never changes through upgrades. The shared ATK/DEF cost formula
+is centralized in `BALANCE` in [simulation.js](../simulation.js).
 
 ---
 
@@ -329,7 +278,7 @@ centralized in `BALANCE.spawnInterval` for playtesting. Attack interval remains
 
 Upgrades must never make the spawn TIMER faster.
 
-+UNIT changes only the NUMBER of units produced per spawn event.
+Each event produces one unit per living base when legal space is available.
 
 If the staging territory is blocked:
 
@@ -362,7 +311,6 @@ Bots use the same:
 - points
 - ATK
 - DEF
-- +UNIT requirements
 - unit statistics
 
 Bots receive no secret combat bonuses.
@@ -378,15 +326,19 @@ pending at a time. Recheck affordability and eligibility before execution; cance
 if the purchase is no longer available, the base is eliminated, or the match ends.
 There is no pause control or automatic tab-switch pause. The page opens in setup;
 choose difficulty below New Game and press New Game to start. Difficulty is locked
-during gameplay and unlocks when the match ends. New Game during play discards the
+during human gameplay and unlocks when the match ends. New Game during human play discards the
 match and returns to setup; pressing it again starts the next match. The selected
 difficulty is retained between matches. Upgrade priorities and economy are unchanged.
-BOT BATTLE, below New Game, starts a spectator match with all four commanders
-controlled by bots, including SOL. Human upgrade inputs are disabled in this mode.
+BOT BATTLE independently starts or restarts a spectator match with all four
+commanders controlled by bots, including SOL. Human upgrades are disabled.
+Speed and difficulty remain selectable in bot battles; pressing BOT BATTLE again
+restarts with those settings. Changing selections does not modify the current match.
+Faction selection prepares the next human match. New Game from a bot battle starts
+a human match with that faction, or returns to setup if no faction is selected.
 The speed row below difficulty offers NORMAL (default, 65 world units/second),
-FAST (default speed +35%, 87.75), and FASTEST (+70%, 110.5).
-Speed applies equally to all units in both match types and is locked during play.
-It unlocks in setup or after the match ends and is retained for subsequent matches.
+FAST (default speed +50%, 97.5), and FASTEST (+100%, 130).
+Speed applies equally to all units in both match types and is locked during human play.
+It unlocks in setup, bot battles, or after the match ends and is retained for subsequent matches.
 Apart from the FASTEST reaction-delay override above, only movement speed changes;
 attack timing, spawning, collision sizes, and economy
 remain unchanged.

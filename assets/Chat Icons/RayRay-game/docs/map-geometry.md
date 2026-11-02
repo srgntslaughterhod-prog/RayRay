@@ -78,8 +78,8 @@ Starting doorway width:
 
 Approximately ten units wide for this playtest: 140 world units of clear space
 using the original 14-unit reference diameter. Current unit collision diameter is
-7.7 after the latest 10% size increase; the opening remains 140 world units and fits
-approximately 18.18 physical diameters. The centralized `GATEWAY_WIDTH_IN_UNITS = 10` sets the
+10.18325 after the latest 15% size increase; the opening remains 140 world units and fits
+approximately 13.75 physical diameters. The centralized `GATEWAY_WIDTH_IN_UNITS = 10` sets the
 default `BALANCE.doorwayWidth`. All four openings share that width; their locations
 remain unchanged. This replaces the earlier three-unit-width test.
 

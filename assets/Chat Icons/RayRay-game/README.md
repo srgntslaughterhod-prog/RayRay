@@ -21,15 +21,19 @@ the battlefield, with commander slots in two columns. Help text and guide/test
 links are omitted from the gameplay panel.
 The gameplay page itself does not scroll. There is no pause control or automatic
 tab-switch pause. The page opens in setup: choose Easy, Medium (default), or Hard
-below New Game, then press New Game to start. Difficulty is locked during gameplay.
+below New Game, then press New Game to start. Difficulty is locked during human gameplay.
 New Game during play discards the match and returns to setup; press it again to
 start. After a match ends, difficulty unlocks for the next game. Browsers may throttle
 simulation updates in background tabs.
-BOT BATTLE, directly below New Game, immediately starts an all-bot spectator
-match, including SOL; manual upgrades are disabled while spectating.
+BOT BATTLE independently starts or restarts an all-bot spectator match, including
+SOL. Speed and difficulty remain selectable while spectating; changes apply only
+when BOT BATTLE is pressed again. Manual upgrades remain disabled. New Game never
+starts a bot match: from spectator mode it starts a human match with the selected
+faction, or returns to faction setup if none is selected. Faction selection during
+a bot battle prepares the next human match without changing the ongoing battle.
 Below difficulty, NORMAL (default), FAST, and FASTEST select movement speed for
-all units in either match type: 65, 87.75 (+35%), or 110.5 (+70%) world units per
-second. Speed locks during gameplay, unlocks in setup or after a match ends, and
+all units in either match type: 65, 97.5 (+50%), or 130 (+100%) world units per
+second. Speed locks during human gameplay, unlocks in setup, bot battles, or after a match ends, and
 is retained between matches. Attack and spawn timing do not change.
 Difficulty changes only bot purchase reaction delay: **Easy 1 second**, **Medium
 0.875 seconds**, **Hard 0.75 seconds** of match time after choosing an affordable
@@ -60,12 +64,9 @@ interval, upgrade priorities, prices, and eligibility rules remain unchanged.
 - ATK and DEF start at level 1 and increase by one without a cap. Upgrade cost
   equals the current level (`upgradeCost = currentLevel`): level 1 -> 2 costs
   1 point, level 8 -> 9 costs 8 points, and level 25 -> 26 costs 25 points.
-- +UNIT is purchasable exactly once: displayed ATK 10 and DEF 10 are required,
-  and it costs 20 points. Production increases from 1 to 2 units per spawn,
-  then +UNIT permanently shows Maximum. Higher stats unlock no further production.
-  The timer never speeds up.
-- ATK/DEF buttons show current stats and next costs. The +UNIT button shows
-  current units/spawn, next cost, and required stats without duplicate control text.
+- Production stays at one unit per spawn for every faction. +UNIT is removed
+  from controls, simulation purchases, and bot decisions.
+- ATK/DEF buttons show current stats and next costs.
 - Base HP starts at 1000. Regeneration is 2 HP/second after three seconds without
   damage. Bases have no weapons.
 - Destroyed bases stop spawning. Existing units remain active.
@@ -74,12 +75,10 @@ interval, upgrade priorities, prices, and eligibility rules remain unchanged.
 ## Files and tuning
 
 `BALANCE.statUpgradeCost` is the shared configurable ATK/DEF cost formula.
-`BALANCE.unitCosts` contains the single 20-point production cost. Both human and bot
-commanders use these same simulation purchase rules.
-`BALANCE.unitMilestones` contains the paired ATK/DEF thresholds.
+Both human and bot commanders use the same ATK/DEF simulation purchase rules.
 `BALANCE.spawnInterval` is 1.5 seconds (half the previous interval) and remains
 adjustable. Units move at 65 world units/second (25% faster than 52).
-Production tiers and attack interval are unchanged.
+Production is fixed at one unit per event; attack interval is unchanged.
 
 - [simulation.js](simulation.js): authoritative state, centralized `BALANCE`,
   geometry/visibility routing, spawning, AI, collision, combat, upgrades, and victory.
@@ -89,9 +88,9 @@ Production tiers and attack interval are unchanged.
 - [renderer.js](renderer.js): approved terrain/base artwork and canonical unit
   sprite, small faction emblems without base-name text, faction accent recoloring,
   HP bars, and simple pickaxe swing. The central arena has no text label.
-  Unit sprites render at 24.2 world units wide, a 10% increase in width and height.
-  Collision radius also increases 10% to 3.85; spawn and movement spacing use the
-  resulting 7.7-unit physical diameter.
+  Unit sprites render at 32.0045 world units wide, another 15% increase in width and height.
+  Collision radius also increases 15% to 5.091625; spawn and movement spacing use the
+  resulting 10.18325-unit physical diameter.
 - [game.js](game.js): fixed-step loop, UI, resizing, restart, and controller wiring.
 - [arena.css](arena.css): full-viewport layout.
 
@@ -102,14 +101,14 @@ increment of **0.125**. Level 1 = 1.00, level 5 = 1.50, level 10 = 2.125, and le
 Unit HP = `12 + effectiveDEF × 3`. Attack damage = `4 + effectiveATK`. Each displayed
 DEF upgrade adds **0.375 HP** to existing faction units (preserving damage already
 taken) and new-unit maximum HP; each ATK upgrade adds **0.125 damage**.
-Purchase costs and +UNIT eligibility still use displayed levels, not combat values.
+Purchase costs still use displayed levels, not combat values.
 Attack interval is **1.0 second**, independently of ATK. These are initial
 playtesting values, not permanent balance decisions.
 
 The map uses a 1000×1000 simulation square, center (500,500), diamond vertices
 (500,166), (834,500), (500,834), (166,500), four midpoint doors, and shared
 cardinal rock walls. Each faction has exactly one symmetric gateway with **140 world
-units** of clearance (ten original 14-unit diameters, or approximately 18.18 current 7.7-unit
+units** of clearance (ten original 14-unit diameters, or approximately 13.75 current 10.18325-unit
 physical diameters). `GATEWAY_WIDTH_IN_UNITS = 10` in
 [simulation.js](simulation.js) sets the default `BALANCE.doorwayWidth`; world-unit
 width overrides remain available for playtesting. Gateway positions and the rest

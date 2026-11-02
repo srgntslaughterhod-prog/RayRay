@@ -3,7 +3,7 @@
 
   const GATEWAY_WIDTH_IN_UNITS = 10;
   const GATEWAY_REFERENCE_UNIT_DIAMETER = 14;
-  const UNIT_RADIUS = 3.5 * 1.1;
+  const UNIT_RADIUS = 3.5 * 1.1 * 1.15 * 1.15;
   const BALANCE = Object.freeze({
     mapSize: 1000,
     outerWall: 14,
@@ -32,9 +32,7 @@
     damageBase: 4,
     damagePerATK: 1,
     combatValuePerLevel: 0.125,
-    unitMilestones: Object.freeze([10]),
     statUpgradeCost: (currentLevel) => currentLevel,
-    unitCosts: Object.freeze([20]),
     fixedStep: 1 / 30,
     collisionPasses: 3,
   });
@@ -207,11 +205,7 @@
         const cost = this.config.statUpgradeCost(commander[type]);
         return { available: commander.points >= cost, cost, reason: `Requires ${cost} point${cost === 1 ? "" : "s"}.` };
       }
-      if (type !== "unit") return { available: false, reason: "Unknown upgrade." };
-      const level = commander.production - 1;
-      if (level >= this.config.unitMilestones.length) return { available: false, reason: `Maximum: ${this.config.unitMilestones.length + 1} units per spawn.` };
-      const requirement = this.config.unitMilestones[level], cost = this.config.unitCosts[level];
-      return { available: commander.atk >= requirement && commander.def >= requirement && commander.points >= cost, cost, requirement, reason: `Requires ATK ${requirement}, DEF ${requirement}, and ${cost} point${cost === 1 ? "" : "s"}.` };
+      return { available: false, reason: "Unknown upgrade." };
     }
 
     purchase(slot, type) {
@@ -219,18 +213,15 @@
       if (!state.available) return { ok: false, message: state.reason };
       const commander = this.commanders[slot];
       commander.points -= state.cost;
-      if (type === "unit") commander.production++;
-      else {
-        const previousHealth = healthFor(commander, this.config);
-        commander[type]++;
-        if (type === "def") {
-          const healthGain = healthFor(commander, this.config) - previousHealth;
-          for (const unit of this.units) {
-            if (unit.slot === slot) unit.hp += healthGain;
-          }
+      const previousHealth = healthFor(commander, this.config);
+      commander[type]++;
+      if (type === "def") {
+        const healthGain = healthFor(commander, this.config) - previousHealth;
+        for (const unit of this.units) {
+          if (unit.slot === slot) unit.hp += healthGain;
         }
       }
-      return { ok: true, message: `${type === "unit" ? "+UNIT" : type.toUpperCase()} purchased.` };
+      return { ok: true, message: `${type.toUpperCase()} purchased.` };
     }
 
     nearestEnemyBase(unit) {
@@ -387,7 +378,7 @@
         if (!base.alive) continue;
         if (this.time - base.lastDamage >= this.config.regenerationDelay) base.hp = Math.min(this.config.baseHP, base.hp + this.config.baseRegeneration * dt);
         while (this.time + 1e-8 >= base.nextSpawn) {
-          for (let i = 0; i < this.commanders[base.slot].production; i++) this.spawn(base.slot);
+          this.spawn(base.slot);
           base.nextSpawn += this.config.spawnInterval;
         }
       }

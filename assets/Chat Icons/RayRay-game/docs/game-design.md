@@ -27,8 +27,7 @@ Do not add complexity unless testing proves that complexity is necessary.
 5. The commander spends points on:
    - ATK
    - DEF
-   - +UNIT
-6. Stronger and larger armies push toward enemy bases.
+6. Stronger armies push toward enemy bases.
 7. Bases are destroyed.
 8. The last surviving base wins.
 
@@ -36,11 +35,10 @@ Do not add complexity unless testing proves that complexity is necessary.
 
 ## Commander Controls
 
-The player has only three strategic controls:
+The player has only two strategic upgrade controls:
 
 - ATK
 - DEF
-- +UNIT
 
 The player does NOT:
 
@@ -109,7 +107,6 @@ Interesting situations should primarily emerge from:
 - central arena combat
 - ATK investment
 - DEF investment
-- +UNIT investment
 - base regeneration
 - changing battlefield position
 
