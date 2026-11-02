@@ -13,7 +13,7 @@ V0.1:
 
 - Select SOL, BTC, ETH, or BNB before New Game; there is no initially selected faction.
 - The selected faction is human-controlled; the other three are bots.
-- The selection row is between New Game and BOT BATTLE, and locks during gameplay.
+- The selection row is above New Game, below the upgrade buttons, and locks during gameplay.
 - The choice is retained between matches. BOT BATTLE needs no selection and uses four bots.
 
 Victory condition:

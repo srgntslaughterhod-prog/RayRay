@@ -10,7 +10,7 @@ Deploy the `RayRayArena` folder together with the existing `assets/Chat Icons/Ra
 folder and homepage. The arena page's relative base URL loads the shared scripts,
 stylesheet, and approved artwork without duplicating the game.
 Choose **SOL, BTC, ETH, or BNB** before starting a human match; no faction is
-selected initially. The selection row sits between New Game and BOT BATTLE and
+selected initially. The selection row sits between the upgrade buttons and New Game and
 locks during gameplay. Other factions are bots with identical rules. Your choice
 is retained between matches; BOT BATTLE requires no faction selection.
 

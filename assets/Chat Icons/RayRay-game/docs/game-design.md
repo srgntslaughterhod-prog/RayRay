@@ -69,7 +69,7 @@ V0.1 uses:
 
 - Choose SOL, BTC, ETH, or BNB in setup to control that commander; no initial selection.
 - The other three commanders are bots. BOT BATTLE makes all four bots.
-- Faction selection sits between New Game and BOT BATTLE and locks during gameplay.
+- Faction selection sits above New Game, below the upgrade buttons, and locks during gameplay.
 
 The game simulation must not depend on a commander being human.
 
